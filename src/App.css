@@ -1,0 +1,162 @@
+
+
+
+
+/* .fa 
+{
+    padding-right: 15px;
+} */
+
+.fa-trash 
+{
+    color: red;
+    font-size: 10px;
+
+}
+.fa-edit
+{
+    color: green;
+    font-size: 10px;
+}
+
+/* ------------------------form---------------- */
+.dob 
+{
+    border: solid 1px #e7e7e7;
+    border-radius: 5px;
+    padding-left: 20px;
+    margin-left: 20px;
+    /* width: 410px; */
+}
+.dob2
+{
+    border: solid 1px #e7e7e7;
+    border-radius: 5px;
+    width: 410px;
+    margin-left: 20px;
+
+}
+.form_check
+{
+    padding-bottom: 20px;
+}
+/* login */
+#logout
+{
+    color: #e3e3e3;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 0 !important;
+    outline: none;
+}
+.create
+{
+    margin: 10px;
+}
+.btn 
+{
+    border: 2px solid #6e707e;
+}
+.pagelogin
+{
+    margin: 0;
+    padding: 0;
+    background: #6e707e no-repeat;
+    background-size: cover;
+    height: 90vh;
+}
+.login_panel
+{
+    width: 280px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+}
+.login_panel h1
+{
+    font-size: 40px;
+    border-bottom: 5px solid#4a2082;
+    margin-bottom: 35px;
+    padding: 8px 0;
+}
+.textbox
+{
+    width: 100%;
+    overflow: hidden;
+    font-size: 20px;
+    padding: 8px 0;
+    margin: 8px 0;
+    border-bottom: 1px solid #4a2082;
+}
+.textbox input
+{
+    border:none;
+    outline: none;
+    background: none;
+    color: #fff;
+    font-size: 18px;
+    width: 80%;
+    margin: 0 10px;
+}
+.bottonlog
+{
+    width: 100%;
+    border: 2px solid #4a2082;
+    background: none;
+    color: #ffffff !important;
+    font-size: 18px;
+   
+}
+::placeholder
+{
+    color: rgb(127, 199, 79);
+}
+span
+{
+    color: #fff;
+    font-size: 18px;
+}
+.list
+{
+    padding-left: 20px;
+}
+/* -------------------Biodata-------------- */
+.biodata
+{
+    padding: 20px;
+    width: 98%;
+    background: #fff;
+    margin: auto;
+    box-shadow: 4px 4px 2px #d0c9c9;
+    border-radius: 20px;
+    margin-bottom: 50px;
+}
+/* ---------------Members--------------- */
+.members
+{
+    padding: 20px;
+    width: 98%;
+    background: #fff;
+    margin: auto;
+    box-shadow: 4px 4px 2px #d0c9c9;
+    border-radius: 20px;
+    margin-bottom: 50px;
+}
+
+/* ---------------------Financial -------------- */
+.finance
+{
+    padding: 20px;
+    width: 98%;
+    background: #fff;
+    margin: auto;
+    box-shadow: 6px 6px 4px #d0c9c9;
+    border-radius: 20px;
+    margin-bottom: 50px;
+}
+.form-group
+{
+    padding-right: 10px;
+}
