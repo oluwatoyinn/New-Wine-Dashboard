@@ -7,7 +7,7 @@ import Member from './member/Member'
 const DisplayContents = () => {
     return (
         <Fragment>
-
+ {/* Will contain all pages  eg financial, members, cell  etc */}
             <Switch>
                 <Route exact path="/"  component={HomePage} />
                 <Route exact path="/member" component={Member} />

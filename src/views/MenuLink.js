@@ -8,13 +8,13 @@ const MenuLink = () => {
                     {/* Add icons to the links using the .nav-icon class
                     with font-awesome or any other icon font library */}
                     <li className="nav-item has-treeview menu-open">
-                    <a href="#" className="nav-link active">
+                    {/* <a href="#" className="nav-link active">
                         <i className="nav-icon fas fa-tachometer-alt" />
                         <p>
                         Starter Pages
                         <i className="right fas fa-angle-left" />
                         </p>
-                    </a>
+                    </a> */}
                     <ul className="nav nav-treeview">
                         <li className="nav-item">
                         <Link to="/member" className="nav-link active">
@@ -25,12 +25,18 @@ const MenuLink = () => {
                         <li className="nav-item">
                         <a href="#" className="nav-link">
                             <i className="far fa-circle nav-icon" />
-                            <p>Inactive Page</p>
+                            <p>financial</p>
+                        </a>
+                        </li>
+                        <li className="nav-item">
+                        <a href="#" className="nav-link">
+                            <i className="far fa-circle nav-icon" />
+                            <p>Cells</p>
                         </a>
                         </li>
                     </ul>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                     <a href="#" className="nav-link">
                         <i className="nav-icon fas fa-th" />
                         <p>
@@ -47,7 +53,7 @@ const MenuLink = () => {
                         <span className="right badge badge-danger">New</span>
                         </p>
                     </a>
-                    </li>
+                    </li> */}
                 </ul>
         </React.Fragment>
     )
