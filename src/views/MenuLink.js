@@ -25,14 +25,14 @@ const MenuLink = () => {
                         <li className="nav-item">
                         <a href="#" className="nav-link">
                             <i className="far fa-circle nav-icon" />
-                            <p>financial</p>
+                            <p>Financial</p>
                         </a>
                         </li>
                         <li className="nav-item">
-                        <a href="#" className="nav-link">
+                        <Link to="/cell" className="nav-link">
                             <i className="far fa-circle nav-icon" />
                             <p>Cells</p>
-                        </a>
+                        </Link>
                         </li>
                     </ul>
                     </li>
