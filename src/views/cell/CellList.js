@@ -30,7 +30,7 @@ export class CellList extends Component {
         .then(res =>{
 
             this.setState({
-            data:res.data.data
+                data:res.data.data
             })
         })   
     }
@@ -88,13 +88,13 @@ export class CellList extends Component {
     //Modal toggle ends here
 
     render() {
-           const myCell = this.state.data.map(cell =>{
+           const myCell = this.state.data.map((cell,index) =>{
                return (
-                 <tr className="table table-striped table-hover">
-                        <td>{cell.id}</td>
-                        <td>{cell.cellZone}</td>
+                 <tr className="table table-striped table-hover" key={cell.id}>
+                        <td>{index+1}</td>
                         <td>{cell.cellAddress}</td>
                         <td>{cell.cellLeaderName}</td>
+                        <td>{cell.cellZone}</td>
                         <td>{cell.cellLeaderEmail}</td>
                         <td>{cell.cellPhoneNumber}</td>
                  </tr>
@@ -104,10 +104,29 @@ export class CellList extends Component {
         //    Modal Class------------------------------------------
             return(
             <>
-               <Button color="primary" onClick={this.toggleNewCell}>Add Cell</Button>
-                    <Modal isOpen={this.state.newCell} toggle={this.toggleNewCell} onSubmit={this.handleSubmit}>
+               <Button color="primary" className="float-right mb-3" onClick={this.toggleNewCell}>Add Cell</Button>
+                 
+        
+               <Table className="mt-5">
+                   <thead>
+                       <tr>
+                            <th>id</th>
+                            <th>Cell Address</th>
+                            <th>Cell Leader Name</th>
+                            <th>Cell Zone</th>
+                            <th>Cell Leader Email</th>
+                            <th>Cell Phone Number</th>
+                        
+                        </tr>
+                   </thead>
+                   <tbody>
+                       {myCell}
+                   </tbody>
+               </Table>
+               {/* modal start */}
+               <Modal isOpen={this.state.newCell} toggle={this.toggleNewCell} onSubmit={this.handleSubmit}>
                         <ModalHeader toggle={this.toggleNewCell}>Add New Cell</ModalHeader>
-                            <ModalBody>
+                        <ModalBody>
                             <FormGroup>
                                 <Label for="id">Id</Label>
                                 <Input type="number" id="id" value={this.state.datas.id} onChange={this.handleChange} />
@@ -128,33 +147,16 @@ export class CellList extends Component {
                                 <Label for="cellLeaderEmail">Email</Label>
                                 <Input type="text" id="cellLeaderEmail" value={this.state.datas.cellLeaderEmail} onChange={this.handleChange} />
                             </FormGroup>
-                             <FormGroup>
+                                <FormGroup>
                                 <Label for="cellPhoneNumber">Phone Number</Label>
                                 <Input type="text" id="cellPhoneNumber" value={this.state.datas.cellPhoneNumber} onChange={this.handleChange} />
                             </FormGroup>
-                            </ModalBody>
-                            <ModalFooter>
-                                <Button color="primary" onClick={this.addCell.bind(this)}>Add Cell</Button>{' '}
-                                <Button color="secondary" onClick={this.toggleNewCell}>Cancel</Button>
-                            </ModalFooter>
-                    </Modal>
-        
-               <Table>
-                   <thead>
-                       <tr>
-                            <th>id</th>
-                            <th>CellZone</th>
-                            <th>CellAddress</th>
-                            <th>CellLeaderName</th>
-                            <th>CellLeaderEmail</th>
-                            <th>CellPhoneNumber</th>
-                        
-                        </tr>
-                   </thead>
-                   <tbody>
-                       {myCell}
-                   </tbody>
-               </Table>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color="primary" onClick={this.addCell.bind(this)}>Add Cell</Button>{' '}
+                            <Button color="secondary" onClick={this.toggleNewCell}>Cancel</Button>
+                        </ModalFooter>
+                </Modal>
             </>
             )
            

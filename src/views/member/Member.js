@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import Axios from 'axios'
+import axios from 'axios'
 import {Table} from "reactstrap"
 import { BASE_URL } from '../../configs/Constants'
+import DefaultLoading from '../../configs/DefaultLoading'
 
 export class Member extends Component {
 
@@ -9,22 +10,42 @@ export class Member extends Component {
         super(props)
     
         this.state = {
-             data:[]
+             data:[],
+             isLoading:true
         }
     }
     componentDidMount(){
-        Axios.get(`${BASE_URL}/api/members`)
+      
+            setTimeout(()=>{
+                this.getMember()
+            },1000)
+
+    } 
+
+    getMember = ()=> {
+
+
+        axios.get(`${BASE_URL}/api/members`)
         .then(res =>{
 
             this.setState({
-               data:res.data.data
+               data:res.data.data,
+               isLoading:false
             })
         })
-    } 
+
+    }
+
     render() {
+
+
+       
+         if(this.state.isLoading) return <DefaultLoading/>
 
            const mydata = this.state.data.map((member,index) =>{
                return (
+
+
                  <tr className="table table-striped table-hover" key={member.id}>
                         <td>{index+1}</td>
                         <td>{member.firstName}</td>
@@ -40,7 +61,7 @@ export class Member extends Component {
 
             return(
             <>
-              <div className="card">
+              <div className="card shadow-sm">
                   <div className="card-body">
                     <Table>
                         <thead>
@@ -65,5 +86,7 @@ export class Member extends Component {
             )
     }
 }
+
+
 
 export default Member

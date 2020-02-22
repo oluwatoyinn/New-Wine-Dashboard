@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 
 const MenuLink = () => {
     return (
@@ -17,10 +17,10 @@ const MenuLink = () => {
                     </a>
                     <ul className="nav nav-treeview">
                         <li className="nav-item">
-                        <Link to="/member" className="nav-link active">
+                        <NavLink to="/member" activeStyle={{color:'#03a9f3'}} className="nav-link">
                             <i className="far fa-circle nav-icon" />
                             <p>Member</p>
-                        </Link>
+                        </NavLink>
                         </li>
                         <li className="nav-item">
                         <a href="#" className="nav-link">
@@ -29,10 +29,10 @@ const MenuLink = () => {
                         </a>
                         </li>
                         <li className="nav-item">
-                        <Link to="/cell" className="nav-link">
+                        <NavLink to="/cell" activeStyle={{color:'#03a9f3'}} className="nav-link">
                             <i className="far fa-circle nav-icon" />
                             <p>Cells</p>
-                        </Link>
+                        </NavLink>
                         </li>
                     </ul>
                     </li>
