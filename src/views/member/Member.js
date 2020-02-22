@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Axios from 'axios'
-import {Table,Button} from "reactstrap"
+import {Table} from "reactstrap"
 import { BASE_URL } from '../../configs/Constants'
 
 export class Member extends Component {
@@ -22,10 +22,11 @@ export class Member extends Component {
         })
     } 
     render() {
-           const mydata = this.state.data.map(member =>{
+
+           const mydata = this.state.data.map((member,index) =>{
                return (
-                 <tr className="table table-striped table-hover">
-                        <td>{member.id}</td>
+                 <tr className="table table-striped table-hover" key={member.id}>
+                        <td>{index+1}</td>
                         <td>{member.firstName}</td>
                         <td>{member.lastName}</td>
                         <td>{member.email}</td>
@@ -36,25 +37,30 @@ export class Member extends Component {
                  </tr>
                )
            })
+
             return(
             <>
-               <Table>
-                   <thead>
-                       <tr>
-                            <th>id</th>
-                            <th>FirstName</th>
-                            <th>LastName</th>
-                            <th>Email</th>
-                            <th>Bithday</th>
-                            <th>PhoneNumber</th>
-                            <th>ContactAddress</th>
-                            <th>Occupation</th>
-                        </tr>
-                   </thead>
-                   <tbody>
-                       {mydata}
-                   </tbody>
-               </Table>
+              <div className="card">
+                  <div className="card-body">
+                    <Table>
+                        <thead>
+                            <tr>
+                                    <th>#</th>
+                                    <th>FirstName</th>
+                                    <th>LastName</th>
+                                    <th>Email</th>
+                                    <th>Bithday</th>
+                                    <th>PhoneNumber</th>
+                                    <th>ContactAddress</th>
+                                    <th>Occupation</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                            {mydata}
+                        </tbody>
+                    </Table>
+                  </div>
+              </div>
             </>
             )
     }
