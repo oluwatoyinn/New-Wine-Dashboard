@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Axios from 'axios'
+import axios from 'axios'
 import {Table} from "reactstrap"
 import { BASE_URL } from '../../configs/Constants'
 
@@ -13,14 +13,24 @@ export class Member extends Component {
         }
     }
     componentDidMount(){
-        Axios.get(`${BASE_URL}/api/members`)
+      
+            this.getMember()
+            
+    } 
+
+    getMember = ()=> {
+
+
+        axios.get(`${BASE_URL}/api/members`)
         .then(res =>{
 
             this.setState({
                data:res.data.data
             })
         })
-    } 
+
+    }
+
     render() {
 
            const mydata = this.state.data.map((member,index) =>{
