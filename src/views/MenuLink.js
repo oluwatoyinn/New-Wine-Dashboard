@@ -8,13 +8,13 @@ const MenuLink = () => {
                     {/* Add icons to the links using the .nav-icon class
                     with font-awesome or any other icon font library */}
                     <li className="nav-item has-treeview menu-open">
-                    {/* <a href="#" className="nav-link active">
+                    <a href="#" className="nav-link active">
                         <i className="nav-icon fas fa-tachometer-alt" />
                         <p>
                         Starter Pages
                         <i className="right fas fa-angle-left" />
                         </p>
-                    </a> */}
+                    </a>
                     <ul className="nav nav-treeview">
                         <li className="nav-item">
                         <Link to="/member" className="nav-link active">
