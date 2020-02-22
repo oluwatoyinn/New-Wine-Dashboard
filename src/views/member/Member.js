@@ -20,7 +20,6 @@ export class Member extends Component {
 
     getMember = ()=> {
 
-
         axios.get(`${BASE_URL}/api/members`)
         .then(res =>{
 
