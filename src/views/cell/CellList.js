@@ -10,6 +10,7 @@ export class CellList extends Component {
     
         this.state = {
              data:[],
+             newCell: false,
              datas: 
                  {
                      id:'',
@@ -26,15 +27,18 @@ export class CellList extends Component {
     
 
     componentDidMount(){
+         this.getCells()
+    }
+
+    getCells = () => {
         axios.get(`${BASE_URL}/api/cells`)
         .then(res =>{
 
             this.setState({
                 data:res.data.data
             })
-        })   
+        }) 
     }
-
     // Handle the posting -------------------------------------
  
     // handleSubmit = event =>{
@@ -65,10 +69,12 @@ export class CellList extends Component {
             this.setState({cells, toggleNewCell:false })
         })
     }
-       
+    
+    
+
     handleChange = event => {
         this.setState({
-            id:event.target.value,
+            // id:event.target.value,
             cellZone:event.target.value,
             cellAddress:event.target.value,
             cellLeaderName:event.target.value,
@@ -76,6 +82,17 @@ export class CellList extends Component {
             cellPhoneNumber:event.target.value,
         })
     }
+
+    // handleChange = (e) => {
+    //     let {datas} = this.state;
+    //     datas.cellLeaderAddress = e.target.value;
+    //     datas.cellLeaderName = e.target.value;
+    //     datas.cellZone = e.target.value;
+    //     datas.cellLeaderEmail = e.target.value;
+    //     datas.cellPhoneNumber = e.target.value;
+        
+    //     this.setState({datas})
+    // }
 
     //Handle posting ends here
 
@@ -110,7 +127,7 @@ export class CellList extends Component {
                <Table className="mt-5">
                    <thead>
                        <tr>
-                            <th>id</th>
+                            <th>#</th>
                             <th>Cell Address</th>
                             <th>Cell Leader Name</th>
                             <th>Cell Zone</th>
@@ -127,21 +144,21 @@ export class CellList extends Component {
                <Modal isOpen={this.state.newCell} toggle={this.toggleNewCell} onSubmit={this.handleSubmit}>
                         <ModalHeader toggle={this.toggleNewCell}>Add New Cell</ModalHeader>
                         <ModalBody>
-                            <FormGroup>
+                            {/* <FormGroup>
                                 <Label for="id">Id</Label>
                                 <Input type="number" id="id" value={this.state.datas.id} onChange={this.handleChange} />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="cellZone">CellZone</Label>
-                                <Input type="text" id="cellZone" value={this.state.datas.cellZone} onChange={this.handleChange} />
-                            </FormGroup>
+                            </FormGroup> */}
                             <FormGroup>
                                 <Label for="cellLeaderAddress">Address</Label>
                                 <Input type="text" id="cellAddress" value={this.state.datas.cellLeaderAddress} onChange={this.handleChange} />
-                            </FormGroup> 
+                            </FormGroup>
                             <FormGroup>
                                 <Label for="cellLeaderName">Name</Label>
                                 <Input type="text" id="cellLeaderName" value={this.state.datas.cellLeaderName} onChange={this.handleChange} />
+                            </FormGroup> 
+                            <FormGroup>
+                                <Label for="cellZone">CellZone</Label>
+                                <Input type="text" id="cellZone" value={this.state.datas.cellZone} onChange={this.handleChange} />
                             </FormGroup> 
                             <FormGroup>
                                 <Label for="cellLeaderEmail">Email</Label>

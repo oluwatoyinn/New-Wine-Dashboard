@@ -37,14 +37,11 @@ export class Member extends Component {
     }
 
     render() {
-
-
        
          if(this.state.isLoading) return <DefaultLoading/>
 
-           const mydata = this.state.data.map((member,index) =>{
+           const mydata = this.state.data.map((member,index) => {
                return (
-
 
                  <tr className="table table-striped table-hover" key={member.id}>
                         <td>{index+1}</td>
