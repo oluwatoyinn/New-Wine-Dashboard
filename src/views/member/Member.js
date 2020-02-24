@@ -61,18 +61,21 @@ export class Member extends Component {
 
             return(
             <>
+             <h4 className="text-left">List of Team Members</h4>
+              
               <div className="card shadow-sm">
                   <div className="card-body">
+                      
                     <Table>
                         <thead>
                             <tr>
                                     <th>#</th>
-                                    <th>FirstName</th>
-                                    <th>LastName</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
                                     <th>Email</th>
                                     <th>Bithday</th>
-                                    <th>PhoneNumber</th>
-                                    <th>ContactAddress</th>
+                                    <th>Phone Number</th>
+                                    <th>Contact Address</th>
                                     <th>Occupation</th>
                                 </tr>
                         </thead>
