@@ -5,7 +5,7 @@ const MenuLink = () => {
     return (
         <React.Fragment>
              <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li className="nav-item has-treeview menu-open">
+                {/* <li className="nav-item has-treeview menu-open">
                 <a href="#" className="nav-link active">
                     <i className="nav-icon fas fa-tachometer-alt" />
                     <p>
@@ -27,10 +27,20 @@ const MenuLink = () => {
                     </a>
                     </li>
                 </ul>
+                </li> */}
+                <li className="nav-item">
+                    <NavLink to="/" className="nav-link bg-success">
+                        <i className="nav-icon fas fa-th"></i>
+                        <p>
+                         DashBoard
+                        {/* <span className="right badge badge-danger">50</span>+ */}
+                        </p>
+                    </NavLink>
                 </li>
                 <li className="nav-item">
                     <NavLink to="/member" className="nav-link">
-                        <i className="nav-icon fas fa-th"/>
+                        {/* <i className="nav-icon fas fa-th"></i> */}
+                        <i className="fa fa-user"></i> &nbsp;
                         <p>
                          Members
                         <span className="right badge badge-danger">50</span>

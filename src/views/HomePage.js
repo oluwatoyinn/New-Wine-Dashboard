@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
 
 export class HomePage extends Component {
 
@@ -14,58 +15,65 @@ export class HomePage extends Component {
     render() {
         return (
             <>
-                <form>
-                    <div className="form-group">
-                        <label>First Name</label>
-                        <input type="text" className="form-control" placeholder="Enter First Name" />
+                <div className="row">
+                    <div className="col-lg-3 col-6">
+                        {/* small box */}
+                        <div className="small-box bg-info">
+                        <div className="inner">
+                            <h3>150</h3>
+                            <p>New Orders</p>
+                        </div>
+                        <div className="icon">
+                            <i className="ion ion-bag" />
+                        </div>
+                        <Link to={""} className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
+                        </div>
                     </div>
-                    <div className="form-group">
-                        <label>Last Name</label>
-                        <input type="text" className="form-control" placeholder="Enter last name" />
+                    {/* ./col */}
+                    <div className="col-lg-3 col-6">
+                        {/* small box */}
+                        <div className="small-box bg-success">
+                        <div className="inner">
+                            <h3>53<sup style={{fontSize: 20}}>%</sup></h3>
+                            <p>Bounce Rate</p>
+                        </div>
+                        <div className="icon">
+                            <i className="ion ion-stats-bars" />
+                        </div>
+                        <Link to={""} className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
+                        </div>
                     </div>
-                    <div className="form-group">
-                        <label>Contact Address</label>
-                        <textarea name="address" id="address" cols={70} rows={3} defaultValue={""} />
+                    {/* ./col */}
+                    <div className="col-lg-3 col-6">
+                        {/* small box */}
+                        <div className="small-box bg-warning">
+                        <div className="inner">
+                            <h3>44</h3>
+                            <p>User Registrations</p>
+                        </div>
+                        <div className="icon">
+                            <i className="ion ion-person-add" />
+                        </div>
+                        <Link to={""} className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
+                        </div>
                     </div>
-                    <div className="form-group">
-                        <label>Email Address</label>
-                        <input type="email" className="form-control" placeholder="Enter your email address" />
+                    {/* ./col */}
+                    <div className="col-lg-3 col-6">
+                        {/* small box */}
+                        <div className="small-box bg-danger">
+                        <div className="inner">
+                            <h3>65</h3>
+                            <p>Unique Visitors</p>
+                        </div>
+                        <div className="icon">
+                            <i className="ion ion-pie-graph" />
+                        </div>
+                        <Link to={""} className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
+                        </div>
                     </div>
-                    <div className="form-group ">
-                        <label>Date of Birth</label>
-                        <input type="date" className="dob" name="form-control" />
+                    {/* ./col */}
                     </div>
-                    <div className="form-group">
-                        <label>Occupation</label>
-                        <select name="job" id>
-                        <option value="Developer">Developer</option>
-                        <option value="Pastor">Pastor</option>
-                        <option value="Doctor">Doctor</option>
-                        <option value="Lawyer">Lawyer</option>
-                        {/* <option value=""> Occupation<a href="occupation.html"></a></option> */}
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label>Unit Department</label>
-                        <select name="unit" id>
-                        <option value="teacher"> Prayer</option>
-                        <option value="teacher">Welfare</option>
-                        <option value="teacher">Intercessory</option>
-                        <option value="teacher">Administrative</option>
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label>Position</label>
-                        <select name="post" id>
-                        <option value="Developer">Choir Master</option>
-                        <option value="Pastor">Financial Secretary</option>
-                        <option value="Pastor">Treasurer</option>
-                        <option value="Pastor">Member</option>
-                        </select>
-                        <br /><br />
-                        <button type="submit" className="btn btn-primary">Submit</button>
-                    </div>
-                </form>
+
 
             </>
         )

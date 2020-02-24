@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import {Table} from "reactstrap"
 import { BASE_URL } from '../../configs/Constants'
-import DefaultLoading from '../../configs/DefaultLoading'
+// import DefaultLoading from '../../configs/DefaultLoading'
+import MyLoader from '../../components/MyLoader'
 
 export class Member extends Component {
 
@@ -40,7 +41,7 @@ export class Member extends Component {
 
 
        
-         if(this.state.isLoading) return <DefaultLoading/>
+         if(this.state.isLoading) return <MyLoader msg="Please wait..." />
 
            const mydata = this.state.data.map((member,index) =>{
                return (

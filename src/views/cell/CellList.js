@@ -1,7 +1,17 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import {Table,Button,Modal,ModalHeader,ModalBody,ModalFooter,Label,Input,FormGroup} from "reactstrap"
+import {
+    Table
+    ,Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    Label,
+    Input,
+    FormGroup
+} from "reactstrap"
 import { BASE_URL } from '../../configs/Constants'
+import MyLoader from '../../components/MyLoader'
 
 export class CellList extends Component {
 
@@ -15,7 +25,8 @@ export class CellList extends Component {
              cellLeaderName: "",
              cellLeaderEmail: "",
              cellPhoneNumber: "",
-             modal:false
+             modal:false,
+             isLoading:true
              
         }
         // this.toggle = this.toggle.bind(this)
@@ -34,7 +45,8 @@ export class CellList extends Component {
         .then(res =>{
 
             this.setState({
-                data:res.data.data
+                data:res.data.data,
+                isLoading:false
             })
         })   
     }
@@ -93,7 +105,8 @@ export class CellList extends Component {
             cellAddress,
             cellLeaderEmail,
             cellLeaderName,
-            cellPhoneNumber
+            cellPhoneNumber,
+            isLoading
         } = this.state
 
         const myCell = this.state.data.map((cell,index) =>{
@@ -111,6 +124,9 @@ export class CellList extends Component {
 
         const closeBtn = <button className="close" onClick={this.toggle}>&times;</button>;
 
+        if(isLoading) return <MyLoader msg="Please wait..." />
+
+
         //    Modal Class------------------------------------------
             return(
             <>
@@ -121,9 +137,9 @@ export class CellList extends Component {
                         <h4>Cell Information</h4>
                     </div>
                     <div className="col-md-3">
-                        <Button color="primary" className="float-right mb-3" onClick={this.toggle}>
+                        <button className="btn btn-outline-primary float-right mb-3" onClick={this.toggle}>
                             <i className="fa fa-plus"></i> New Cell
-                        </Button>
+                        </button>
                     </div>
                     <div className="col-md-12">
                         <div className="card">
@@ -148,7 +164,11 @@ export class CellList extends Component {
                     </div>
                 </div>
                {/* modal start */}
-               <Modal isOpen={this.state.modal} toggle={this.toggle}  >
+               <Modal 
+                isOpen={this.state.modal}
+                backdrop={'static'} 
+                toggle={this.toggle} 
+                 >
                         <ModalHeader 
                         toggle={this.toggle} 
                         close={closeBtn}
@@ -181,7 +201,7 @@ export class CellList extends Component {
                             </FormGroup>
                         </ModalBody>
                         <ModalFooter>
-                            <Button className="btn btn-success btn-block" onClick={""}>Create</Button>
+                            <button className="btn btn-primary btn-block" onClick={""}>Create</button>
                         </ModalFooter>
                 </Modal>
             </>
