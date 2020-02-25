@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import {Table} from "reactstrap"
 import { BASE_URL } from '../../configs/Constants'
-// import DefaultLoading from '../../configs/DefaultLoading'
 import MyLoader from '../../components/MyLoader'
+import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
 
 export class Member extends Component {
 
@@ -42,51 +42,74 @@ export class Member extends Component {
 
        
          if(this.state.isLoading) return <MyLoader msg="Please wait..." />
+         const columns = [
+            
+          {
+            dataField: 'id',
+            text: '#',
+            hidden:true
+          }, 
+          {
+            dataField: '#',
+            text: '#',
+            formatter: (cell, row, rowIndex, extraData) => (
+               
+                    <div>
+                        {rowIndex+1}
+                    </div>
+              )
+          }, 
+          {
+            dataField: 'firstName',
+            text: 'First Name'
+          }, 
+          {
+            dataField: 'lastName',
+            text: 'Last Name'
+          }, 
+          {
+            dataField: 'email',
+            text: 'Email'
+          },
+          {
+            dataField: 'phoneNumber',
+            text: 'Phone Number'
+          },
+          {
+            dataField: 'occupation',
+            text: 'Occupation'
+          }
+        ];
 
-           const mydata = this.state.data.map((member,index) =>{
-               return (
+          const options = {
+            pageStartIndex: 1,
+          };
 
+           const rowStyle = { 
+               cursor:'pointer'
+             };
 
-                 <tr className="table table-striped table-hover" key={member.id}>
-                        <td>{index+1}</td>
-                        <td>{member.firstName}</td>
-                        <td>{member.lastName}</td>
-                        <td>{member.email}</td>
-                        <td>{member.birthday}</td>
-                        <td>{member.phoneNumber}</td>
-                        <td>{member.contactAddress}</td>
-                        <td>{member.occupation}</td>
-                 </tr>
-               )
-           })
+            const {data} = this.state
 
             return(
-            <>
-             <h4 className="text-left">List of Team Members</h4>
-              
-              <div className="card shadow-sm">
-                  <div className="card-body">
-                      
-                    <Table>
-                        <thead>
-                            <tr>
-                                    <th>#</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Email</th>
-                                    <th>Bithday</th>
-                                    <th>Phone Number</th>
-                                    <th>Contact Address</th>
-                                    <th>Occupation</th>
-                                </tr>
-                        </thead>
-                        <tbody>
-                            {mydata}
-                        </tbody>
-                    </Table>
-                  </div>
-              </div>
-            </>
+
+                <React.Fragment>
+                    <h5 className="text-left">List of Team Members</h5>
+                    <div className="card">
+                        <div className="card-body">
+                            <BootstrapTable 
+                            keyField="id"
+                            data={ data }
+                            columns={ columns }
+                            bordered={false}
+                            hover
+                            pagination={ paginationFactory(options) }
+                            rowStyle = {rowStyle}
+                            />
+                        </div>
+                    </div>
+                </React.Fragment>
+
             )
     }
 }

@@ -134,7 +134,7 @@ export class CellList extends Component {
                  
                 <div className="row">
                     <div className="col-md-9">
-                        <h4>Cell Information</h4>
+                        <h4 className="text-left">Cell Information</h4>
                     </div>
                     <div className="col-md-3">
                         <button className="btn btn-outline-primary float-right mb-3" onClick={this.toggle}>
