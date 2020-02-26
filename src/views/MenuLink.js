@@ -74,7 +74,7 @@ const MenuLink = () => {
                     </NavLink>
                 </li>
                 <li className="nav-item">
-                    <NavLink to="/not" className="nav-link" >
+                    <NavLink to="/event" className="nav-link" >
                         {/* <i className="nav-icon fas fa-th"></i> */}
                         <i className="fas fa-archway"></i> &nbsp;
                         <p>

@@ -9,6 +9,7 @@ import SongSchedule from './song/SongSchedule'
 import FinancialRecord from './finance/FinancialRecord'
 import UnitDepartment from './department/UnitDepartment'
 import Role from './role/Role'
+import UpcomingEvent from './upcomingevent/UpcomingEvent'
 
 
 const DisplayContents = () => {
@@ -25,6 +26,7 @@ const DisplayContents = () => {
                 <Route exact path="/finance" component={FinancialRecord} />
                 <Route exact path="/department" component={UnitDepartment} />
                 <Route exact path="/role" component={Role} />
+                <Route exact path="/event" component={UpcomingEvent} />
             </Switch>
         </Fragment>
     )
