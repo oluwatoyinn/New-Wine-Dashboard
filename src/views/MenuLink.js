@@ -73,6 +73,16 @@ const MenuLink = () => {
                         </p>
                     </NavLink>
                 </li>
+                <li className="nav-item">
+                    <NavLink to="/not" className="nav-link" >
+                        {/* <i className="nav-icon fas fa-th"></i> */}
+                        <i className="fas fa-archway"></i> &nbsp;
+                        <p>
+                         Upcoming Events
+                        <span className="right badge badge-danger" >5</span>
+                        </p>
+                    </NavLink>
+                </li>
                 <li className="nav-item has-treeview menu-open">
                 <Link to="#" className="nav-link" >
                     <i className="fas fa-cog"></i>&nbsp;
@@ -83,13 +93,13 @@ const MenuLink = () => {
                 </Link>
                 <ul className="nav nav-treeview">
                     <li className="nav-item">
-                    <NavLink to="#" className="nav-link" >
+                    <NavLink to="/role" className="nav-link" activeStyle={{backgroundColor:'#007bff',color:'white'}} >
                         <i className="far fa-circle nav-icon" />
                         <p>User Role</p>
                     </NavLink>
                     </li>
                     <li className="nav-item">
-                    <NavLink to="/cells" className="nav-link" >
+                    <NavLink to="/cells" className="nav-link" activeStyle={{backgroundColor:'#007bff',color:'white'}} >
                         <i className="far fa-circle nav-icon" />
                         <p>Cell Information</p>
                     </NavLink>

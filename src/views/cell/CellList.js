@@ -138,7 +138,7 @@ export class CellList extends Component {
                     </div>
                     <div className="col-md-3">
                         <button className="btn btn-outline-primary float-right mb-3" onClick={this.toggle}>
-                            <i className="fa fa-plus"></i> New Cell
+                            <i className="fa fa-plus"></i> new cell
                         </button>
                     </div>
                     <div className="col-md-12">

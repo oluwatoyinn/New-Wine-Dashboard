@@ -4,7 +4,7 @@ class DressCode extends Component {
     render() {
         return (
             <div>
-                
+                <h4>I am Dress Code</h4>
             </div>
         )
     }

@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 class SongSchedule extends Component {
     render() {
         return (
-            <div>
-                
-            </div>
+            <>
+                <h4>I am song schedule</h4>
+            </>
         )
     }
 }

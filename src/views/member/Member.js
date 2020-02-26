@@ -52,16 +52,16 @@ export class Member extends Component {
           {
             dataField: '#',
             text: '#',
+            headerStyle: (colum, colIndex) => {
+                return { width: '80px' };
+              },
             formatter: (cell, row, rowIndex, extraData) => (
                
                     <div>
                         {rowIndex+1}
                     </div>
               ),
-            style: {
-               
-                    width:'10px'
-              }
+          
             
           }, 
           {
@@ -86,21 +86,29 @@ export class Member extends Component {
           }
         ];
 
-          const options = {
-            pageStartIndex: 1,
-          };
+        const options = {
+        pageStartIndex: 1,
+        };
 
-           const rowStyle = { 
-               cursor:'pointer',
-               width:'90%'
-             };
+        const rowStyle = { 
+            cursor:'pointer',
+        };
 
-            const {data} = this.state
+        const {data} = this.state
 
             return(
 
                 <React.Fragment>
-                    {/* <h5 className="text-left">List of Team Members</h5> */}
+                    <div className="row">
+                        <div className="col-md-8">
+                            <h5 className="text-left">List of Team Members</h5>
+                        </div>
+                        <div className="col-md-4">
+                            <button className="btn btn-outline-primary float-right mb-3" onClick={this.toggle}>
+                                <i className="fa fa-plus"></i> new member
+                            </button>
+                        </div>
+                    </div>
                     <div className="card">
                         <div className="card-body">
                             <BootstrapTable 
