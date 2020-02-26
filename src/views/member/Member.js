@@ -19,7 +19,7 @@ export class Member extends Component {
       
             setTimeout(()=>{
                 this.getMember()
-            },1000)
+            },20)
 
     } 
 
@@ -57,7 +57,12 @@ export class Member extends Component {
                     <div>
                         {rowIndex+1}
                     </div>
-              )
+              ),
+            style: {
+               
+                    width:'10px'
+              }
+            
           }, 
           {
             dataField: 'firstName',
@@ -86,7 +91,8 @@ export class Member extends Component {
           };
 
            const rowStyle = { 
-               cursor:'pointer'
+               cursor:'pointer',
+               width:'90%'
              };
 
             const {data} = this.state
@@ -94,11 +100,12 @@ export class Member extends Component {
             return(
 
                 <React.Fragment>
-                    <h5 className="text-left">List of Team Members</h5>
+                    {/* <h5 className="text-left">List of Team Members</h5> */}
                     <div className="card">
                         <div className="card-body">
                             <BootstrapTable 
                             keyField="id"
+                            caption="List of Team Member"
                             data={ data }
                             columns={ columns }
                             bordered={false}
