@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import {Table} from "reactstrap"
 import { BASE_URL } from '../../configs/Constants'
+import MyLoader from '../../components/MyLoader'
+import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
 
 export class Member extends Component {
 
@@ -9,13 +11,16 @@ export class Member extends Component {
         super(props)
     
         this.state = {
-             data:[]
+             data:[],
+             isLoading:true
         }
     }
     componentDidMount(){
       
-            this.getMember()
-            
+            setTimeout(()=>{
+                this.getMember()
+            },20)
+
     } 
 
     getMember = ()=> {
@@ -24,7 +29,8 @@ export class Member extends Component {
         .then(res =>{
 
             this.setState({
-               data:res.data.data
+               data:res.data.data,
+               isLoading:false
             })
         })
 
@@ -32,47 +38,96 @@ export class Member extends Component {
 
     render() {
 
-           const mydata = this.state.data.map((member,index) =>{
-               return (
-                 <tr className="table table-striped table-hover" key={member.id}>
-                        <td>{index+1}</td>
-                        <td>{member.firstName}</td>
-                        <td>{member.lastName}</td>
-                        <td>{member.email}</td>
-                        <td>{member.birthday}</td>
-                        <td>{member.phoneNumber}</td>
-                        <td>{member.contactAddress}</td>
-                        <td>{member.occupation}</td>
-                 </tr>
-               )
-           })
+
+       
+         if(this.state.isLoading) return <MyLoader msg="Please wait..." />
+         const columns = [
+            
+          {
+            dataField: 'id',
+            text: '#',
+            hidden:true
+          }, 
+          {
+            dataField: '#',
+            text: '#',
+            headerStyle: (colum, colIndex) => {
+                return { width: '80px' };
+              },
+            formatter: (cell, row, rowIndex, extraData) => (
+               
+                    <div>
+                        {rowIndex+1}
+                    </div>
+              ),
+          
+            
+          }, 
+          {
+            dataField: 'firstName',
+            text: 'First Name'
+          }, 
+          {
+            dataField: 'lastName',
+            text: 'Last Name'
+          }, 
+          {
+            dataField: 'email',
+            text: 'Email'
+          },
+          {
+            dataField: 'phoneNumber',
+            text: 'Phone Number'
+          },
+          {
+            dataField: 'occupation',
+            text: 'Occupation'
+          }
+        ];
+
+        const options = {
+        pageStartIndex: 1,
+        };
+
+        const rowStyle = { 
+            cursor:'pointer',
+        };
+
+        const {data} = this.state
 
             return(
-            <>
-              <div className="card">
-                  <div className="card-body">
-                    <Table>
-                        <thead>
-                            <tr>
-                                    <th>#</th>
-                                    <th>FirstName</th>
-                                    <th>LastName</th>
-                                    <th>Email</th>
-                                    <th>Bithday</th>
-                                    <th>PhoneNumber</th>
-                                    <th>ContactAddress</th>
-                                    <th>Occupation</th>
-                                </tr>
-                        </thead>
-                        <tbody>
-                            {mydata}
-                        </tbody>
-                    </Table>
-                  </div>
-              </div>
-            </>
+
+                <React.Fragment>
+                    <div className="row">
+                        <div className="col-md-8">
+                            <h5 className="text-left">List of Team Members</h5>
+                        </div>
+                        <div className="col-md-4">
+                            <button className="btn btn-outline-primary float-right mb-3" onClick={this.toggle}>
+                                <i className="fa fa-plus"></i> new member
+                            </button>
+                        </div>
+                    </div>
+                    <div className="card">
+                        <div className="card-body">
+                            <BootstrapTable 
+                            keyField="id"
+                            caption="List of Team Member"
+                            data={ data }
+                            columns={ columns }
+                            bordered={false}
+                            hover
+                            pagination={ paginationFactory(options) }
+                            rowStyle = {rowStyle}
+                            />
+                        </div>
+                    </div>
+                </React.Fragment>
+
             )
     }
 }
+
+
 
 export default Member
