@@ -76,7 +76,7 @@ const MenuLink = () => {
                 <li className="nav-item">
                     <NavLink to="/event" className="nav-link" >
                         {/* <i className="nav-icon fas fa-th"></i> */}
-                        <i className="fas fa-archway"></i> &nbsp;
+                        <i className="fas fa-calendar"></i> &nbsp;
                         <p>
                          Upcoming Events
                         <span className="right badge badge-danger" >5</span>
