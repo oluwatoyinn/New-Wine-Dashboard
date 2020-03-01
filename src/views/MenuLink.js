@@ -23,10 +23,10 @@ const MenuLink = () => {
                         </NavLink>
                         </li>
                         <li className="nav-item">
-                        <a href="#" className="nav-link">
+                        <NavLink to="/financial" activeStyle={{color:'#03a9f3'}} className="nav-link">
                             <i className="far fa-circle nav-icon" />
                             <p>Financial</p>
-                        </a>
+                        </NavLink>
                         </li>
                         <li className="nav-item">
                         <NavLink to="/cell" activeStyle={{color:'#03a9f3'}} className="nav-link">

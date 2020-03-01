@@ -16,7 +16,7 @@ export class CellList extends Component {
                      cellZone:'',
                      cellAddress:'',
                      cellLeaderName:'',
-                     CellLeaderEmail:'',
+                     cellLeaderEmail:'',
                      cellPhoneNumber:''
                  },
               newCell: false,
@@ -24,6 +24,7 @@ export class CellList extends Component {
              
         }
     this.toggleNewCell = this.toggleNewCell.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     }
     
 
@@ -47,20 +48,20 @@ export class CellList extends Component {
     // Handle the posting -------------------------------------
     addCell(){
 
-        // const user = {
-        //     cellZone: this.state.cellZone,
-        //     cellAddress:this.state.cellAddress,
-        //     cellLeaderName:this.state.cellLeaderName,
-        //     cellLeaderEmail:this.state.cellLeaderEmail,
-        //     cellPhoneNumber:this.state.cellPhoneNumber
-        // };
+        const user = {
+            cellZone: this.state.cellZone,
+            cellAddress:this.state.cellAddress,
+            cellLeaderName:this.state.cellLeaderName,
+            cellLeaderEmail:this.state.cellLeaderEmail,
+            cellPhoneNumber:this.state.cellPhoneNumber
+        };
 
-        axios.post(`${BASE_URL}/api/cells`,this.state.datas)
+        axios.post(`${BASE_URL}/api/cells`, {user})
         .then(res =>{
-            console.log(res.data.data);
-            // let {cells} =  this.state;
-            // cells.push(res.data.data)
-            // this.setState({cells, newCell:true})
+            
+            let {cells} =  this.state;
+            cells.push(res.data.data)
+            this.setState({cells, newCell:true})
             
         })
 
@@ -68,7 +69,12 @@ export class CellList extends Component {
 
     handleSubmit = event =>{
         event.preventDefault();
- 
+    }
+
+    handleChange = event =>{
+        this.setState({
+            [event.target.name] : event.target.value
+        })
     }
 
     //Handle posting ends here
@@ -126,44 +132,24 @@ export class CellList extends Component {
                         <ModalBody>
                        
                             <FormGroup>
-                                <Label for="cellLeaderAddress">Address</Label>
-                                <Input type="text" id="cellAddress" value={this.state.datas.cellLeaderAddress} onChange={(event)=>{
-                                    let {datas} = this.state;
-                                    datas.cellLeaderAddress =event.target.value;
-                                    this.setState({datas});
-                                }} />
+                                <Label for="cellAddress">Address</Label>
+                                <Input type="text" id="cellAddress" name="cellAddress" value={this.state.datas.cellAddress} onChange={this.handleChange} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="cellLeaderName">Name</Label>
-                                <Input type="text" id="cellLeaderName" value={this.state.datas.cellLeaderName} onChange={(event)=>{
-                                       let {datas} = this.state;
-                                       datas.cellLeaderName =event.target.value;
-                                       this.setState({datas});
-                                }} />
+                                <Input type="text" id="cellLeaderName" name="cellLeaderName" value={this.state.datas.cellLeaderName} onChange={this.handleChange} />
                             </FormGroup> 
                             <FormGroup>
                                 <Label for="cellZone">CellZone</Label>
-                                <Input type="text" id="cellZone" value={this.state.datas.cellZone} onChange={(event)=>{
-                                       let {datas} = this.state;
-                                       datas.cellZone =event.target.value;
-                                       this.setState({datas});
-                                }} />
+                                <Input type="text" id="cellZone" name="cellZone" value={this.state.datas.cellZone} onChange={this.handleChange} />
                             </FormGroup> 
                             <FormGroup>
                                 <Label for="cellLeaderEmail">Email</Label>
-                                <Input type="text" id="cellLeaderEmail" value={this.state.datas.cellLeaderEmail} onChange={(event)=>{
-                                       let {datas} = this.state;
-                                       datas.cellLeaderEmail =event.target.value;
-                                       this.setState({datas});
-                                }} />
+                                <Input type="text" id="cellLeaderEmail" name="cellLeaderEmail" value={this.state.datas.cellLeaderEmail} onChange={this.handleChange} />
                             </FormGroup>
                                 <FormGroup>
                                 <Label for="cellPhoneNumber">Phone Number</Label>
-                                <Input type="text" id="cellPhoneNumber" value={this.state.datas.cellPhoneNumber} onChange={(event)=>{
-                                       let {datas} = this.state;
-                                       datas.cellPhoneNumber =event.target.value;
-                                       this.setState({datas});
-                                }} />
+                                <Input type="text" id="cellPhoneNumber" name="cellPhoneNumber" value={this.state.datas.cellPhoneNumber} onChange={this.handleChange} />
                             </FormGroup>
                         </ModalBody>
                         <ModalFooter>
