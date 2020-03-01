@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import {
-    Table
-    ,Modal,
+    Table,
+    Modal,
     ModalHeader,
     ModalBody,
     ModalFooter,
@@ -12,6 +12,9 @@ import {
 } from "reactstrap"
 import { BASE_URL } from '../../configs/Constants'
 import MyLoader from '../../components/MyLoader'
+// import {Alert} from '../../components/ToastAlert'
+import {Toast} from '../../components/AlertSweet'
+
 
 export class CellList extends Component {
 
@@ -30,6 +33,8 @@ export class CellList extends Component {
              
         }
         // this.toggle = this.toggle.bind(this)
+
+       
     }
     
 
@@ -40,10 +45,9 @@ export class CellList extends Component {
 
     // *************************************************
     getAllCell = ()=> {
-
         axios.get(`${BASE_URL}/api/cells`)
         .then(res =>{
-
+            // Alert("Save Successfully")
             this.setState({
                 data:res.data.data,
                 isLoading:false
@@ -51,8 +55,11 @@ export class CellList extends Component {
         })   
     }
 //    ****************************************************************
-    addCell(){
+handleSubmit = ()=>{
 
+
+      
+        
 
         const {
             cellZone,
@@ -73,12 +80,35 @@ export class CellList extends Component {
         
         axios.post(`${BASE_URL}/api/cells`,Data )
         .then(res =>{
-            
-            console.log(res)
+          
+            this.setState({
+
+                modal:false
+            })
+            Toast.fire({
+                icon: 'success',
+                title: "Cell Successfully Created"
+            })
+
+            this.getAllCell()
+            this.resetStateData()
+
         })
         .catch(err=>{
 
+            console.log(err)
+        })
+    }
 
+    resetStateData = ()=> {
+
+        this.setState({
+
+            cellZone: "",
+            cellAddress: "",
+            cellLeaderName: "",
+            cellLeaderEmail: "",
+            cellPhoneNumber: "",
         })
     }
        
@@ -201,7 +231,7 @@ export class CellList extends Component {
                             </FormGroup>
                         </ModalBody>
                         <ModalFooter>
-                            <button className="btn btn-primary btn-block" onClick={""}>Create</button>
+                            <button className="btn btn-success btn-block" onClick={this.handleSubmit}>Create</button>
                         </ModalFooter>
                 </Modal>
             </>
