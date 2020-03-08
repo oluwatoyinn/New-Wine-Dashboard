@@ -16,25 +16,12 @@ code {
 {
     height: 100vh;
 }
-/* .member
-{
-    padding: 20px;
-    width: 98%;
-    background: #fff;
-    margin: auto;
-    box-shadow: 4px 4px 2px #d0c9c9;
-    border-radius: 20px;
-    margin-bottom: 50px;
-} */
+
 .btn-navbar
 {
   float: right;
   width: 100px;
 }
-/* .fa 
-{
-    padding-right: 15px;
-} */
 
 .fa-trash 
 {

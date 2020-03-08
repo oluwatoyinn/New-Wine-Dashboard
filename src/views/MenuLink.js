@@ -23,7 +23,7 @@ const MenuLink = () => {
                         </NavLink>
                         </li>
                         <li className="nav-item">
-                        <NavLink to="/financial" activeStyle={{color:'#03a9f3'}} className="nav-link">
+                        <NavLink to="/financials" activeStyle={{color:'#03a9f3'}} className="nav-link">
                             <i className="far fa-circle nav-icon" />
                             <p>Financial</p>
                         </NavLink>
@@ -32,6 +32,14 @@ const MenuLink = () => {
                         <NavLink to="/cell" activeStyle={{color:'#03a9f3'}} className="nav-link">
                             <i className="far fa-circle nav-icon" />
                             <p>Cells</p>
+                        </NavLink>
+                         <NavLink to="/user_roles" activeStyle={{color:'#03a9f3'}} className="nav-link">
+                            <i className="far fa-circle nav-icon" />
+                            <p>User Roles</p>
+                        </NavLink>
+                        <NavLink to="/executives" activeStyle={{color:'#03a9f3'}} className="nav-link">
+                            <i className="far fa-circle nav-icon" />
+                            <p>Executives</p>
                         </NavLink>
                         </li>
                     </ul>
