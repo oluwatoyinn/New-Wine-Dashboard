@@ -2,10 +2,10 @@
 
 
 
-/* .fa 
+.fa, .fas
 {
     padding-right: 15px;
-} */
+} 
 
 .fa-trash 
 {
@@ -160,17 +160,16 @@ span
 {
     padding-right: 10px;
 }
-.Del_button
-{
-    background-color: red;
-    color: #fff;
-    border-radius: 50%;
-    border: 2px solid gray;
-}
 .Ed_button
 {
     background-color: green;
-    color: #fff;
     border-radius: 50%;
-    border: 2px solid gray;
+    margin-bottom: 5px;
+    border: solid 1px grey
+}
+.Del_button
+{
+    background-color: red;
+    border-radius: 50%;
+ 
 }

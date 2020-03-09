@@ -67,7 +67,7 @@ export class CellList extends Component {
             cellPhoneNumber:this.state.cellPhoneNumber
         };
 
-        axios.post(`${BASE_URL}/api/cells`, {user})
+        axios.post(`${BASE_URL}/api/cells`, user)
         .then(res =>{
 
             this.setState({
@@ -87,7 +87,7 @@ export class CellList extends Component {
             cellLeaderEmail: this.state.cellLeaderEmail,
             cellPhoneNumber:this.state.cellPhoneNumber    
         }
-        axios.put(`${BASE_URL}/api/cells/${this.state.editCell.id}`, cell )
+        axios.put(`${BASE_URL}/api/cells/${this.state.editCell.id}`, {cell} )
         .then(res =>{
             console.log(res.data.editCell)
         })
@@ -103,7 +103,7 @@ export class CellList extends Component {
     //Handle posting ends here
 
     // Modal Toggle start here
-    toggleNewCell(){
+    toggleNewCell =() => {
         this.setState({
             newCell: !this.state.newCell
         })
@@ -208,6 +208,9 @@ export class CellList extends Component {
                         </ModalFooter>
                 </Modal>
 
+
+                {/* re-editing starts from here  */}
+
                 {/* modal for edit start here */}
 
                 <Modal isOpen={this.state.editCellModal} toggle={this.toggleEditCell.bind(this)} >
@@ -224,11 +227,11 @@ export class CellList extends Component {
                             </FormGroup> 
                             <FormGroup>
                                 <Label for="zone">CellZone</Label>
-                                <Input type="text" id="zone" name="zone" value={this.state.editCell.cellZone} onChange={this.updateChange} />
+                                <Input type="text" id="cellZone" name="cellZone" value={this.state.editCell.cellZone} onChange={this.updateChange} />
                             </FormGroup> 
                             <FormGroup>
                                 <Label for="email">Email</Label>
-                                <Input type="text" id="email" name="email" value={this.state.editCell.cellLeaderEmail} onChange={this.updateChange} />
+                                <Input type="text" id="cellLeaderEmail" name="cellLeaderEmaill" value={this.state.editCell.cellLeaderEmail} onChange={this.updateChange} />
                             </FormGroup>
                                 <FormGroup>
                                 <Label for="cellPhoneNumber">Phone Number</Label>

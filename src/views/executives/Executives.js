@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Table} from "reactstrap"
 import axios from 'axios'
 import {BASE_URL} from '../../configs/Constants'
+import DefaultLoading from "../../configs/DefaultLoading"
 
 export class Executives extends Component {
 
@@ -9,7 +10,8 @@ export class Executives extends Component {
         super(props)
     
         this.state = {
-             data: []
+             data: [],
+             isLoading: true
         }
     }
 
@@ -23,12 +25,16 @@ export class Executives extends Component {
         .then (res => { 
 
             this.setState({
-                data:res.data.data
+                data:res.data.data,
+                isLoading:false
             })
         })
     }
     
     render() {
+        
+        if (this.state.isLoading) return <DefaultLoading />
+        
         const myExecutives = this.state.data.map((executive,index) =>{
                 return(
                     <tr>

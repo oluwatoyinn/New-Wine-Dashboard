@@ -18,27 +18,27 @@ const MenuLink = () => {
                     <ul className="nav nav-treeview">
                         <li className="nav-item">
                         <NavLink to="/member" activeStyle={{color:'#03a9f3'}} className="nav-link">
-                            <i className="far fa-circle nav-icon" />
+                            <i className="nav-icon fas fa-th" />
                             <p>Member</p>
                         </NavLink>
                         </li>
                         <li className="nav-item">
                         <NavLink to="/financials" activeStyle={{color:'#03a9f3'}} className="nav-link">
-                            <i className="far fa-circle nav-icon" />
+                            <i className="fas fa-money-check-alt"></i>
                             <p>Financial</p>
                         </NavLink>
                         </li>
                         <li className="nav-item">
                         <NavLink to="/cell" activeStyle={{color:'#03a9f3'}} className="nav-link">
-                            <i className="far fa-circle nav-icon" />
+                            <i className="fa fa-user-tie" />
                             <p>Cells</p>
                         </NavLink>
                          <NavLink to="/user_roles" activeStyle={{color:'#03a9f3'}} className="nav-link">
-                            <i className="far fa-circle nav-icon" />
+                            <i className="fa fa-user-tie" />
                             <p>User Roles</p>
                         </NavLink>
                         <NavLink to="/executives" activeStyle={{color:'#03a9f3'}} className="nav-link">
-                            <i className="far fa-circle nav-icon" />
+                            <i className="fa fa-user-tie" />
                             <p>Executives</p>
                         </NavLink>
                         </li>
