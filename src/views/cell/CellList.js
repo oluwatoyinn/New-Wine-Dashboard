@@ -6,14 +6,21 @@ import {
     ModalHeader,
     ModalBody,
     ModalFooter,
-    Label,
-    Input,
-    FormGroup
 } from "reactstrap"
 import { BASE_URL } from '../../configs/Constants'
 import MyLoader from '../../components/MyLoader'
-// import {Alert} from '../../components/ToastAlert'
-import {Toast} from '../../components/AlertSweet'
+import {Row,Col,Card,CardBody} from 'reactstrap'
+import {TextInput} from '../../components/FormComponents'
+// import {NotificationContainer} from 'react-notifications';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import {getCells} from '../../actions/cellActions'
+import {changeIsLoading} from '../../actions/isLoadingAction'
+import SimpleReactValidator from 'simple-react-validator';
+// import {ErrorMsg} from '../../configs/StyleConstants'
+import SpinnerSVG from '../../components/SpinnerSVG'
+
 
 
 export class CellList extends Component {
@@ -29,37 +36,39 @@ export class CellList extends Component {
              cellLeaderEmail: "",
              cellPhoneNumber: "",
              modal:false,
-             isLoading:true
+             errors:{},
+             spinner:false
              
         }
-        // this.toggle = this.toggle.bind(this)
 
-       
+        this.validator = new SimpleReactValidator();
+
     }
-    
 
     componentDidMount(){
        
-        this.getAllCell()
+        this.props.getCells()
     }
 
-    // *************************************************
-    getAllCell = ()=> {
-        axios.get(`${BASE_URL}/api/cells`)
-        .then(res =>{
-            // Alert("Save Successfully")
-            this.setState({
-                data:res.data.data,
-                isLoading:false
-            })
-        })   
-    }
 //    ****************************************************************
-handleSubmit = ()=>{
+onSubmitFinal=(e)=>{
+
+    e.preventDefault()
+    if(this.validator.allValid())
+    {
+        this.handleSubmit()
+    }
+    else
+    {
+        this.validator.showMessages()
+        this.forceUpdate()
+    }
 
 
-      
-        
+}
+
+handleSubmit = ()=>{        
+
 
         const {
             cellZone,
@@ -71,33 +80,47 @@ handleSubmit = ()=>{
 
         const Data = {
 
-            "cellZone": cellZone ,
+            "zone": cellZone ,
             "cellAddress": cellAddress,
             "cellLeaderName": cellLeaderName,
-            "cellLeaderEmail": cellLeaderEmail,
+            "email": cellLeaderEmail,
             "cellPhoneNumber": cellPhoneNumber
         }
-        
-        axios.post(`${BASE_URL}/api/cells`,Data )
-        .then(res =>{
-          
-            this.setState({
-
-                modal:false
-            })
-            Toast.fire({
-                icon: 'success',
-                title: "Cell Successfully Created"
-            })
-
-            this.getAllCell()
-            this.resetStateData()
-
+        this.setState({
+            spinner:true,
+            modal:false
         })
-        .catch(err=>{
+        setTimeout(()=>{
 
-            console.log(err)
-        })
+            axios.post(`${BASE_URL}/api/cells`,Data )
+            .then(res =>{
+              
+                NotificationManager.success('Successfully Processed', 'NEW CELL');
+                
+                this.setState({
+    
+                    modal:false,
+                    spinner:false
+                })
+                console.log(res)
+                this.props.getCells()
+                this.resetStateData()
+    
+            })
+            .catch(err=>{
+    
+    
+                this.setState({
+                        
+                    errors:err.response.data.errors,
+                    spinner:false,
+                    modal:true
+                })
+                NotificationManager.error('Error in processing request', 'FAILED');
+    
+            })
+        },1000)
+
     }
 
     resetStateData = ()=> {
@@ -119,14 +142,24 @@ handleSubmit = ()=>{
         })
     }
 
-    toggle=()=>{
 
+toggle=()=>{
             this.setState(prevState=>({
 
                 modal:!prevState.modal
 
             }))
+            this.validator.hideMessages()
     }
+
+
+
+    componentWillUnmount(){
+
+        this.props.changeIsLoading()
+  
+  }
+  
 
     render() {
 
@@ -136,10 +169,17 @@ handleSubmit = ()=>{
             cellLeaderEmail,
             cellLeaderName,
             cellPhoneNumber,
-            isLoading
+            errors
         } = this.state
 
-        const myCell = this.state.data.map((cell,index) =>{
+
+        let arr = [];
+        Object.values(errors).forEach((value) => (
+          arr.push(value)
+        ));
+
+
+        const myCell = this.props.cells.map((cell,index) =>{
             return (
                 <tr className="table table-striped table-hover" key={cell.id}>
                     <td>{index+1}</td>
@@ -154,26 +194,30 @@ handleSubmit = ()=>{
 
         const closeBtn = <button className="close" onClick={this.toggle}>&times;</button>;
 
-        if(isLoading) return <MyLoader msg="Please wait..." />
+        if(this.props.isLoading) return <MyLoader msg="Please wait..." />
 
-
+      
         //    Modal Class------------------------------------------
             return(
+
             <>
-               
-                 
-                <div className="row">
-                    <div className="col-md-9">
+                <NotificationContainer/>
+                  
+                {this.state.spinner &&<SpinnerSVG top="50%" left="50%" />}
+
+                <Row>
+                      
+                    <Col md="9">
                         <h4 className="text-left">Cell Information</h4>
-                    </div>
-                    <div className="col-md-3">
+                    </Col>
+                    <Col md="3">
                         <button className="btn btn-outline-primary float-right mb-3" onClick={this.toggle}>
                             <i className="fa fa-plus"></i> new cell
                         </button>
-                    </div>
-                    <div className="col-md-12">
-                        <div className="card">
-                            <div className="card-body">
+                    </Col>
+                    <Col md="12">
+                        <Card>
+                            <CardBody>
                                 <Table className="">
                                     <thead>
                                         <tr>
@@ -189,10 +233,10 @@ handleSubmit = ()=>{
                                         {myCell}
                                     </tbody>
                                 </Table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            </CardBody>
+                        </Card>
+                    </Col>
+                </Row>
                {/* modal start */}
                <Modal 
                 isOpen={this.state.modal}
@@ -207,33 +251,83 @@ handleSubmit = ()=>{
                             New Cell
                         </ModalHeader>
                         <ModalBody>
-                            <FormGroup>
-                                <Label for="cellLeaderName">Name</Label>
-                                <Input type="text" id="cellLeaderName" name="cellLeaderName" value={cellLeaderName} onChange={this.handleChange} />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="cellLeaderAddress">Address</Label>
-                                <Input type="textarea" id="cellAddress" name="cellAddress" value={cellAddress} onChange={this.handleChange} />
-                            </FormGroup> 
-                            <FormGroup>
-                                <Label for="cellZone">zone</Label>
-                                <Input type="number" id="cellZone" name="cellZone" value={cellZone} onChange={this.handleChange} />
-                            </FormGroup>
-                           
-                           
-                            <FormGroup>
-                                <Label for="cellLeaderEmail">Email</Label>
-                                <Input type="text" id="cellLeaderEmail"name="cellLeaderEmail" value={cellLeaderEmail} onChange={this.handleChange} />
-                            </FormGroup>
-                                <FormGroup>
-                                <Label for="cellPhoneNumber">Phone Number</Label>
-                                <Input type="text" id="cellPhoneNumber" name="cellPhoneNumber" value={cellPhoneNumber} onChange={this.handleChange} />
-                            </FormGroup>
+                            <Row>
+                                <Col md="12">
+                                    <ul>
+                                        {arr.map((item, i) => (
+                                            <li key={i}><h6 style={{color: 'red'}}>{item}</h6></li>
+                                        ))}
+                                    </ul>
+                                </Col>
+                                <Col md="12">
+                                    <TextInput
+                                        labelFor="cellLeaderName"
+                                        labelText="Name"
+                                        type="text"
+                                        name="cellLeaderName"
+                                        value={cellLeaderName}
+                                        onChange={this.handleChange}
+                                    >
+                                        {/* <ErrorMsg>{this.validator.message('cell leader name', cellLeaderName, 'required')}</ErrorMsg>        */}
+                                    </TextInput>
+                                </Col>
+                                <Col md="12">
+                                    <TextInput
+                                        labelFor="cellAddress"
+                                        labelText="Address"
+                                        type="text"
+                                        name="cellAddress"
+                                        value={cellAddress}
+                                        onChange={this.handleChange}
+                                    >
+                                        {/* <ErrorMsg>{this.validator.message('cell address', cellAddress, 'required')}</ErrorMsg>        */}
+                                    </TextInput>
+                                </Col>
+                                <Col md="12">
+                                    <TextInput
+                                        labelFor="zone"
+                                        labelText="Zone"
+                                        type="number"
+                                        name="cellZone"
+                                        value={cellZone}
+                                        onChange={this.handleChange}
+                                    >
+                                        {/* <ErrorMsg>{this.validator.message('cellZone', cellZone, 'required|numeric')}</ErrorMsg>        */}
+                                    </TextInput>
+                                </Col>
+                                <Col md="12">
+                                    <TextInput
+                                        labelFor="cellLeaderEmail"
+                                        labelText="Email"
+                                        type="text"
+                                        name="cellLeaderEmail"
+                                        value={cellLeaderEmail}
+                                        onChange={this.handleChange}
+                                    >
+                                        {/* <ErrorMsg>{this.validator.message('cell leader email', cellLeaderEmail, 'required|email')}</ErrorMsg>        */}
+                                    </TextInput>
+                                </Col>
+                                <Col md="12">
+                                    <TextInput
+                                        labelFor="cellPhoneNumber"
+                                        labelText="Phone Number"
+                                        type="text"
+                                        name="cellPhoneNumber"
+                                        value={cellPhoneNumber}
+                                        onChange={this.handleChange}
+                                    >
+                                        {/* <ErrorMsg>{this.validator.message('cell phone number', cellPhoneNumber, 'required|phone')}</ErrorMsg>        */}
+                                    </TextInput>
+                                </Col>
+                            </Row>
                         </ModalBody>
                         <ModalFooter>
-                            <button className="btn btn-success btn-block" onClick={this.handleSubmit}>Create</button>
+                            <button className="btn btn-success btn-block" onClick={this.onSubmitFinal}>Create</button>
                         </ModalFooter>
                 </Modal>
+
+
+
             </>
             )
            
@@ -241,4 +335,18 @@ handleSubmit = ()=>{
 
 }
 
-export default CellList
+
+CellList.propTypes = {
+
+        cellReducers:PropTypes.array
+  };
+
+  const mapStateToProps = state => ({
+      
+    cells: state.cellReducers.cells,
+    isLoading: state.cellReducers.isLoading
+
+  });
+  
+
+export default connect(mapStateToProps,{getCells,changeIsLoading})(CellList)

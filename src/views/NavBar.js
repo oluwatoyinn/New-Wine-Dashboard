@@ -88,7 +88,7 @@ class NavBar extends Component {
                         {/* Message End */}
                       </Link>
                       <div className="dropdown-divider" />
-                      <Link href="#" className="dropdown-item dropdown-footer">See All Messages</Link>
+                      <Link to="#" className="dropdown-item dropdown-footer">See All Messages</Link>
                     </div>
                   </li>
                   {/* Notifications Dropdown Menu */}
@@ -115,12 +115,12 @@ class NavBar extends Component {
                         <span className="float-right text-muted text-sm">2 days</span>
                       </Link>
                       <div className="dropdown-divider" />
-                      <Link href="#" className="dropdown-item dropdown-footer">See All Notifications</Link>
+                      <Link to="#" className="dropdown-item dropdown-footer">See All Notifications</Link>
                     </div>
                   </li>
-                  <li className="nav-item">
+                  {/* <li className="nav-item">
                     <Link className="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i className="fas fa-th-large" /></Link>
-                  </li>
+                  </li> */}
                 </ul>
               </nav>
             </React.Fragment>

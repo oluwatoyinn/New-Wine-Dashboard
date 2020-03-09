@@ -13,4 +13,26 @@ export const Toast = Swal.mixin({
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
   })
+
   
+  
+
+// Toast.fire({
+//     icon: 'success',
+//     title: "Cell Successfully Created"
+// })
+
+
+// Swal.fire({
+//     icon: 'success',
+//     title: 'Success',
+//     text: '',
+//     showClass: {
+//         popup: 'animated zoomIn faster'
+//       },
+//       hideClass: {
+//         popup: 'animated zoomOut faster'
+//       },
+//     timer: 1500,
+//     showConfirmButton: false
+// })
