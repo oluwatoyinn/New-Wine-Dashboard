@@ -11,7 +11,6 @@ import { BASE_URL } from '../../configs/Constants'
 import MyLoader from '../../components/MyLoader'
 import {Row,Col,Card,CardBody} from 'reactstrap'
 import {TextInput} from '../../components/FormComponents'
-// import {NotificationContainer} from 'react-notifications';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
