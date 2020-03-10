@@ -11,32 +11,23 @@ export class CellList extends Component {
     
         this.state = {
                 data:[],
-                zone:'',
+                cellZone:'',
                 cellAddress:'',
                 cellLeaderName:'',
                 email:'',
                 cellPhoneNumber:'',
+                id:'',
 
-                editCell: {
-                    id:'',
-                    cellAddress:'',
-                    cellLeaderName:'',
-                    cellZone:'',
-                    cellLeaderEmail:'',
-                    cellPhoneNumber:''    
-                },
-
-                newCell: false,
+              
+                Modal: false,
                 isLoading:true,
-                editCellModal:false
+                editCellModal:false,
+                isEdit:false
              
         }
-    this.toggleNewCell = this.toggleNewCell.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.updateChange = this.updateChange.bind(this)
     }
     
-
+    //GET REQUEST -------------------------------------------------------------------------------------------------------------------
     componentDidMount(){
         setTimeout(()=>{
             this.getCells()
@@ -54,7 +45,8 @@ export class CellList extends Component {
             })
         }) 
     }
-    // Handle the posting -------------------------------------
+
+    // Handle the posting ---------------------------------------------------------------------------------------------------------
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -70,26 +62,32 @@ export class CellList extends Component {
         axios.post(`${BASE_URL}/api/cells`, user)
         .then(res =>{
 
+            console.log(res)
             this.setState({
-                newCell:false 
+                Modal:false 
             })
               
         })
+
+        this.getCells()
     }
+
+    //PUT REQUEST ----------------------------------------------------------------------------------------------------------------
 
     updateCell = (event) => {
         event.preventDefault();
 
         const cell = {
-            cellAddress: this.state.cellAddress,
+            celAddress: this.state.cellAddress,
             cellLeaderName: this.state.cellLeaderName,
-            cellZone:this.state.cellZone,
-            cellLeaderEmail: this.state.cellLeaderEmail,
+            zone:this.state.cellZone,
+            email: this.state.cellLeaderEmail,
             cellPhoneNumber:this.state.cellPhoneNumber    
         }
-        axios.put(`${BASE_URL}/api/cells/${this.state.editCell.id}`, {cell} )
+   
+        axios.put(`${BASE_URL}/api/cells/${this.state.id}`.id, cell )
         .then(res =>{
-            console.log(res.data.editCell)
+            console.log(res.data)
         })
       
     }
@@ -103,12 +101,14 @@ export class CellList extends Component {
     //Handle posting ends here
 
     // Modal Toggle start here
-    toggleNewCell =() => {
+    toggle =() => {
         this.setState({
-            newCell: !this.state.newCell
+            Modal: !this.state.Modal
         })
     }
     //Modal toggle ends here
+
+    //EDIT REQUEST -----------------------------------------------------------------------------------
 
     cellEdit(id, cellAddress,cellLeaderName,cellZone,cellLeaderEmail, cellPhoneNumber) {
         this.setState({
@@ -116,14 +116,39 @@ export class CellList extends Component {
         })
     }
 
-    updateChange =(event) =>{
+    updateChange =(e) =>{
         this.setState({
-            [event.target.name] : event.target.value
+            [e.target.name] : e.target.value
         })
     }
+
     toggleEditCell(){
         this.setState({
             editCellModal: !this.state.editCellModal
+        })
+    }
+
+    updateToggle = (id)=> {
+
+        this.getSingleCell(id)
+
+        this.setState({
+            modal:true,
+            isEdit:true
+        })
+    }
+
+    getSingleCell(id){
+        axios.get(`${BASE_URL}/api/cells/${id}`)
+        .then(res=>{
+
+            this.setState({
+                id:res.data.data.id,
+                cellZone:res.data.data.cellZone,
+                cellLeaderEmail:res.data.cellLeaderName,
+                cellLeaderEmail:res.data.cellLeaderEmail,
+                cellPhoneNumber:res.setState.cellPhoneNumber
+            })
         })
     }
 
@@ -140,19 +165,27 @@ export class CellList extends Component {
                         <td>{cell.cellLeaderEmail}</td>
                         <td>{cell.cellPhoneNumber}</td>
                         <td>
-                            <button className="Ed_button" onClick={this.cellEdit.bind(this,
-                            cell.id,cell.cellAddress, cell.cellLeaderName, cell.cellZone,
-                            cell.cellLeaderEmail, cell.cellPhoneNumber )} >Edit </button>
-                            <button className="Del_button"> Del </button>
+                            <button className="btn btn-warning" onClick={this.updateToggle(cell.id)} >Edit </button>
+                            <button className="btn btn-danger"> Del </button>
                         </td>
                  </tr>
                  )
            })
 
+           const {
+               id,
+               cellLeaderEmail,
+               cellLeaderName,
+               cellPhoneNumber,
+               cellAddress,
+               cellZone,
+               isEdit
+            } = this.state
+
         //    Modal Class------------------------------------------
             return(
             <>
-               <Button color="primary" className="float-right mb-3" onClick={this.toggleNewCell}>Add Cell</Button>
+               <Button color="primary" className="float-right mb-3" onClick={this.toggle}>Add Cell</Button>
                  
                 <div className="card shadow-sm">
                     <div className="card-body">
@@ -177,72 +210,52 @@ export class CellList extends Component {
                </div>
 
                {/* modal start */}
-               <Modal isOpen={this.state.newCell} toggle={this.toggleNewCell} >
-                        <ModalHeader toggle={this.toggleNewCell}>Add New Cell</ModalHeader>
+               <Modal isOpen={this.state.Modal} toggle={this.toggle} >
+                        <ModalHeader 
+                        toggle={this.toggle}
+                        >
+                            Add New Cell
+                        </ModalHeader>
                         <ModalBody>
-                       
+
+                            <FormGroup>
+                                <Label for="cellLeaderName">id</Label>
+                                <Input type="text" id="id" name="id" value={id} onChange={this.handleChange} />
+                            </FormGroup>
+                             <FormGroup>
+                                <Label for="cellLeaderName">Name</Label>
+                                <Input type="text" id="cellLeaderName" name="cellLeaderName" value={cellLeaderName} onChange={this.handleChange} />
+                            </FormGroup>       
                             <FormGroup>
                                 <Label for="cellAddress">Address</Label>
-                                <Input type="text" id="cellAddress" name="cellAddress" value={this.state.cellAddress} onChange={this.handleChange} />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="cellLeaderName">Name</Label>
-                                <Input type="text" id="cellLeaderName" name="cellLeaderName" value={this.state.cellLeaderName} onChange={this.handleChange} />
+                                <Input type="textarea" id="cellAddress" name="cellAddress" value={cellAddress} onChange={this.handleChange} />
                             </FormGroup> 
                             <FormGroup>
                                 <Label for="zone">CellZone</Label>
-                                <Input type="text" id="zone" name="zone" value={this.state.zone} onChange={this.handleChange} />
+                                <Input type="nunber" id="zone" name="zone" value={cellZone} onChange={this.handleChange} />
                             </FormGroup> 
                             <FormGroup>
                                 <Label for="email">Email</Label>
-                                <Input type="text" id="email" name="email" value={this.state.email} onChange={this.handleChange} />
+                                <Input type="text" id="email" name="email" value={cellLeaderEmail} onChange={this.handleChange} />
                             </FormGroup>
                                 <FormGroup>
                                 <Label for="cellPhoneNumber">Phone Number</Label>
-                                <Input type="text" id="cellPhoneNumber" name="cellPhoneNumber" value={this.state.cellPhoneNumber} onChange={this.handleChange} />
+                                <Input type="text" id="cellPhoneNumber" name="cellPhoneNumber" value={cellPhoneNumber} onChange={this.handleChange} />
                             </FormGroup>
                         </ModalBody>
                         <ModalFooter>
+                            {isEdit?
+                            <Button color="primary" onClick={this.handleSubmit}>Edit Cell</Button>
+                            :
                             <Button color="primary" onClick={this.handleSubmit}>Add Cell</Button>
-                            <Button color="secondary" onClick={this.toggleNewCell}>Cancel</Button>
+                            }
+                            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                         </ModalFooter>
                 </Modal>
 
 
                 {/* re-editing starts from here  */}
 
-                {/* modal for edit start here */}
-
-                <Modal isOpen={this.state.editCellModal} toggle={this.toggleEditCell.bind(this)} >
-                        <ModalHeader toggle={this.toggleEditCell.bind(this)}>Edit A Cell</ModalHeader>
-                        <ModalBody>
-                       
-                            <FormGroup>
-                                <Label for="cellAddress">Address</Label>
-                                <Input type="text" id="cellAddress" name="cellAddress" value={this.state.editCell.cellAddress} onChange={this.updateChange} />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="cellLeaderName">Name</Label>
-                                <Input type="text" id="cellLeaderName" name="cellLeaderName" value={this.state.editCell.cellLeaderName} onChange={this.updateChange} />
-                            </FormGroup> 
-                            <FormGroup>
-                                <Label for="zone">CellZone</Label>
-                                <Input type="text" id="cellZone" name="cellZone" value={this.state.editCell.cellZone} onChange={this.updateChange} />
-                            </FormGroup> 
-                            <FormGroup>
-                                <Label for="email">Email</Label>
-                                <Input type="text" id="cellLeaderEmail" name="cellLeaderEmaill" value={this.state.editCell.cellLeaderEmail} onChange={this.updateChange} />
-                            </FormGroup>
-                                <FormGroup>
-                                <Label for="cellPhoneNumber">Phone Number</Label>
-                                <Input type="text" id="cellPhoneNumber" name="cellPhoneNumber" value={this.state.editCell.cellPhoneNumber} onChange={this.updateChange} />
-                            </FormGroup>
-                        </ModalBody>
-                        <ModalFooter>
-                            <Button color="primary" onClick={this.updateCell}>Update Cell</Button>
-                            <Button color="secondary" onClick={this.toggleEditCell.bind(this)}>Cancel</Button>
-                        </ModalFooter>
-                </Modal>
 
             </>
             )
