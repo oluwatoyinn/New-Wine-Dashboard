@@ -1,6 +1,14 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import {Table,Button,Modal,ModalHeader,ModalBody,ModalFooter,Label,Input,FormGroup} from "reactstrap"
+import {Table,
+        Button,
+        Modal,
+        ModalHeader,
+        ModalBody,
+        ModalFooter,
+        Label,
+        Input,
+        FormGroup} from "reactstrap"
 import { BASE_URL } from '../../configs/Constants'
 import DefaultLoading from '../../configs/DefaultLoading'
 
@@ -8,21 +16,19 @@ export class CellList extends Component {
 
     constructor(props) {
         super(props)
-    
+
         this.state = {
                 data:[],
-                cellZone:'',
+                zone:'',
                 cellAddress:'',
                 cellLeaderName:'',
                 email:'',
                 cellPhoneNumber:'',
                 id:'',
 
-              
-                Modal: false,
+                modal: false,
                 isLoading:true,
-                editCellModal:false,
-                isEdit:false
+                // isEdit:false
              
         }
     }
@@ -64,7 +70,7 @@ export class CellList extends Component {
 
             console.log(res)
             this.setState({
-                Modal:false 
+                modal:false
             })
               
         })
@@ -92,6 +98,9 @@ export class CellList extends Component {
       
     }
 
+    deleteCell = () =>{};
+  
+
     handleChange = event =>{
         this.setState({
             [event.target.name] : event.target.value
@@ -100,42 +109,18 @@ export class CellList extends Component {
 
     //Handle posting ends here
 
-    // Modal Toggle start here
     toggle =() => {
         this.setState({
-            Modal: !this.state.Modal
-        })
-    }
-    //Modal toggle ends here
-
-    //EDIT REQUEST -----------------------------------------------------------------------------------
-
-    cellEdit(id, cellAddress,cellLeaderName,cellZone,cellLeaderEmail, cellPhoneNumber) {
-        this.setState({
-            editCell:{id, cellAddress,cellLeaderName,cellZone,cellLeaderEmail, cellPhoneNumber}, editCellModal: !this.state.editCellModal
+            modal: !this.state.modal
         })
     }
 
-    updateChange =(e) =>{
-        this.setState({
-            [e.target.name] : e.target.value
-        })
-    }
 
-    toggleEditCell(){
-        this.setState({
-            editCellModal: !this.state.editCellModal
-        })
-    }
-
-    updateToggle = (id)=> {
-
-        this.getSingleCell(id)
-
-        this.setState({
-            modal:true,
-            isEdit:true
-        })
+    updateToggle = (id) => {
+        
+        setTimeout(()=>{
+            this.getSingleCell(id)
+        },1000)
     }
 
     getSingleCell(id){
@@ -147,8 +132,12 @@ export class CellList extends Component {
                 cellZone:res.data.data.cellZone,
                 cellLeaderEmail:res.data.cellLeaderName,
                 cellLeaderEmail:res.data.cellLeaderEmail,
-                cellPhoneNumber:res.setState.cellPhoneNumber
+                cellPhoneNumber:res.data.cellPhoneNumber
             })
+        })
+        this.setState({
+            modal:false,
+            isEdit:true
         })
     }
 
@@ -164,9 +153,9 @@ export class CellList extends Component {
                         <td>{cell.cellZone}</td>
                         <td>{cell.cellLeaderEmail}</td>
                         <td>{cell.cellPhoneNumber}</td>
-                        <td>
-                            <button className="btn btn-warning" onClick={this.updateToggle(cell.id)} >Edit </button>
-                            <button className="btn btn-danger"> Del </button>
+                        <td className="container">
+                            <button className="btn btn-warning" size="sm" onClick={this.updateToggle(cell.id)} >Edit </button> {' '}
+                            <button className="btn btn-danger" onClick={this.deleteCell(cell.id)}> Del </button>
                         </td>
                  </tr>
                  )
@@ -210,18 +199,15 @@ export class CellList extends Component {
                </div>
 
                {/* modal start */}
-               <Modal isOpen={this.state.Modal} toggle={this.toggle} >
-                        <ModalHeader 
-                        toggle={this.toggle}
-                        >
-                            Add New Cell
+               <Modal isOpen={this.state.modal} toggle={this.toggle} >
+                    <ModalHeader toggle={this.toggle} > Add New Cell
                         </ModalHeader>
                         <ModalBody>
 
-                            <FormGroup>
+                            {/* <FormGroup>
                                 <Label for="cellLeaderName">id</Label>
                                 <Input type="text" id="id" name="id" value={id} onChange={this.handleChange} />
-                            </FormGroup>
+                            </FormGroup> */}
                              <FormGroup>
                                 <Label for="cellLeaderName">Name</Label>
                                 <Input type="text" id="cellLeaderName" name="cellLeaderName" value={cellLeaderName} onChange={this.handleChange} />
@@ -244,18 +230,16 @@ export class CellList extends Component {
                             </FormGroup>
                         </ModalBody>
                         <ModalFooter>
-                            {isEdit?
-                            <Button color="primary" onClick={this.handleSubmit}>Edit Cell</Button>
-                            :
+
+                            {/* {isEdit? */}
+                            {/* <Button color="primary" onClick={this.updateCell}>Edit Cell</Button> */}
+                            {/* :  */}
                             <Button color="primary" onClick={this.handleSubmit}>Add Cell</Button>
-                            }
+                             {/* }  */}
                             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+
                         </ModalFooter>
                 </Modal>
-
-
-                {/* re-editing starts from here  */}
-
 
             </>
             )

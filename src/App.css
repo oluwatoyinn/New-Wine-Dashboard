@@ -160,16 +160,44 @@ span
 {
     padding-right: 10px;
 }
-.Ed_button
+/* .ed_b
 {
     background-color: green;
     border-radius: 50%;
     margin-bottom: 5px;
-    border: solid 1px grey
+    border: solid 1px grey;
+    float:right;
+    overflow:hidden
 }
-.Del_button
+.del_b
 {
     background-color: red;
     border-radius: 50%;
+    float: left;
  
+} */
+/* .buttons
+{
+    margin-top: 10px;
+    overflow: hidden;
 }
+.buttons
+{
+    float: right;
+}
+.buttons :nth-child(2) {
+    margin-right: 15px;
+    float: right;
+    padding: 10px 25px;
+}
+.button{
+    background: rgba(10, 190, 81, 1) ;
+    padding: 10px 25px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    outline: none;
+} */
+
+
