@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import {Table,Button, Modal, ModalBody,ModalFooter, ModalHeader,Input,Label,FormGroup} from "reactstrap"
+import {Table,Card,Button, Modal, ModalBody,ModalFooter, ModalHeader,Input,Label,FormGroup} from "reactstrap"
 import axios from 'axios'
 import {BASE_URL} from '../../configs/Constants'
 import DefaultLoading from "../../configs/DefaultLoading"
+import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
 
 export class Executives extends Component {
 
@@ -101,30 +103,59 @@ export class Executives extends Component {
             lastName,
             position,
             email,
-            phoneNumber
+            phoneNumber,
+            data
         } =this.state
+
+        const columns = [{
+            dataField: 'id',
+            text: '#'
+          }, {
+            dataField: 'firstName',
+            text: 'First Name'
+          }, 
+          {
+            dataField: 'lastName',
+            text: 'Last Name'
+          },
+          {
+            dataField: 'position',
+            text: 'Position'
+          },
+          {
+            dataField: 'email',
+            text: 'Email'
+          },
+          {
+            dataField: 'phoneNumber',
+            text: 'Phone Number'
+          }
+        ];
 
 
         return (
             <>
-            <Button color="primary" className="float-right mb-3" onClick={this.toggle}>Add Executive</Button>
-
-                <Table className="mt-5">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Position</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {myExecutives}
-                    </tbody>
-                </Table>
+            
+            <div className="row">
+                <div className="col-md-12">
+                    <Button color="primary" className="float-right mb-3" onClick={this.toggle}>Add Executive</Button>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-md-12">
+                    <Card>
+                        <BootstrapTable 
+                        keyField='id' 
+                        data={ data } 
+                        columns={ columns } 
+                        bordered={ false }
+                        hover
+                        pagination={ paginationFactory() }
+                        />
+                    </Card>
+                </div>
+            </div>
+            
 
             {/* Modal starts here */}
             

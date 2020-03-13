@@ -18,7 +18,7 @@ class NavBar extends Component {
             <a href="#" className="nav-link">Contact</a>
           </li>
       </ul> */}
-      <h3>WELCOME TO NEW WINE ADMIN DASHBOARD</h3>
+      <h3 className="header">WELCOME TO NEW WINE ADMIN DASHBOARD</h3>
 
 
   {/* SEARCH FORM */}

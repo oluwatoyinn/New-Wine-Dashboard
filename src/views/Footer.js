@@ -11,7 +11,7 @@ class Footer extends Component {
                     Anything you want
                 </div>
                 {/* Default to the left */}
-                <strong>Copyright © 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+                <strong className="footer">Copyright © 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
                 </footer>
  
             </>

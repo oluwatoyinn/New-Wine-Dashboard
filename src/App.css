@@ -160,44 +160,19 @@ span
 {
     padding-right: 10px;
 }
-/* .ed_b
+
+.container
 {
-    background-color: green;
     border-radius: 50%;
-    margin-bottom: 5px;
-    border: solid 1px grey;
-    float:right;
-    overflow:hidden
 }
-.del_b
+.header
 {
-    background-color: red;
-    border-radius: 50%;
-    float: left;
- 
-} */
-/* .buttons
+    font-size: 20px;
+    font-family: 'Charm';
+}
+.main-footer
 {
-    margin-top: 10px;
-    overflow: hidden;
+    position: static;
 }
-.buttons
-{
-    float: right;
-}
-.buttons :nth-child(2) {
-    margin-right: 15px;
-    float: right;
-    padding: 10px 25px;
-}
-.button{
-    background: rgba(10, 190, 81, 1) ;
-    padding: 10px 25px;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 4px;
-    outline: none;
-} */
 
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import {Table,
+        Card,
         Button,
         Modal,
         ModalHeader,
@@ -28,7 +29,7 @@ export class CellList extends Component {
 
                 modal: false,
                 isLoading:true,
-                // isEdit:false
+                isEdit:false
              
         }
     }
@@ -65,7 +66,7 @@ export class CellList extends Component {
             cellPhoneNumber:this.state.cellPhoneNumber
         };
 
-        axios.post(`${BASE_URL}/api/cells`, user)
+        axios.post(`${BASE_URL}/api/cells/`, user)
         .then(res =>{
 
             console.log(res)
@@ -73,9 +74,34 @@ export class CellList extends Component {
                 modal:false
             })
               
+        this.getCells()
+        this.resetState()
         })
 
+    }
+    updateSubmit = (event) => {
+        event.preventDefault();
+
+        const user = {
+            zone: this.state.zone,
+            cellAddress:this.state.cellAddress,
+            cellLeaderName:this.state.cellLeaderName,
+            email:this.state.email,
+            cellPhoneNumber:this.state.cellPhoneNumber
+        };
+
+        axios.put(`${BASE_URL}/api/cells/${this.state.id}`, user)
+        .then(res =>{
+
+            console.log(res)
+            this.setState({
+                modal:false
+            })
+              
         this.getCells()
+        this.resetState()
+        })
+
     }
 
     //PUT REQUEST ----------------------------------------------------------------------------------------------------------------
@@ -111,16 +137,33 @@ export class CellList extends Component {
 
     toggle =() => {
         this.setState({
-            modal: !this.state.modal
+            modal: !this.state.modal,
+            isEdit:false
         })
+
+        this.resetState()
     }
 
 
-    updateToggle = (id) => {
-        
+    updateToggle = (e,id) => {
+        e.preventDefault()
+        this.setState({
+            modal:true,
+            isEdit:true
+        })
         setTimeout(()=>{
             this.getSingleCell(id)
         },1000)
+    }
+
+    resetState = ()=> {
+        this.setState({
+            zone:'',
+            cellAddress:'',
+            cellLeaderName:'',
+            email:'',
+            cellPhoneNumber:'',
+        })
     }
 
     getSingleCell(id){
@@ -129,16 +172,14 @@ export class CellList extends Component {
 
             this.setState({
                 id:res.data.data.id,
-                cellZone:res.data.data.cellZone,
-                cellLeaderEmail:res.data.cellLeaderName,
-                cellLeaderEmail:res.data.cellLeaderEmail,
-                cellPhoneNumber:res.data.cellPhoneNumber
+                zone:res.data.data.cellZone,
+                cellLeaderName:res.data.data.cellLeaderName,
+                cellAddress:res.data.data.cellAddress,
+                email:res.data.data.cellLeaderEmail,
+                cellPhoneNumber:res.data.data.cellPhoneNumber
             })
         })
-        this.setState({
-            modal:false,
-            isEdit:true
-        })
+      
     }
 
     render() {
@@ -154,8 +195,8 @@ export class CellList extends Component {
                         <td>{cell.cellLeaderEmail}</td>
                         <td>{cell.cellPhoneNumber}</td>
                         <td className="container">
-                            <button className="btn btn-warning" size="sm" onClick={this.updateToggle(cell.id)} >Edit </button> {' '}
-                            <button className="btn btn-danger" onClick={this.deleteCell(cell.id)}> Del </button>
+                            <button className="btn btn-warning d-inline-block " size="sm" onClick={e=>this.updateToggle(e,cell.id)} >Edit </button> {' '}
+                            <button className="btn btn-danger d-inline-block" onClick={this.deleteCell(cell.id)}> Del </button>
                         </td>
                  </tr>
                  )
@@ -163,22 +204,26 @@ export class CellList extends Component {
 
            const {
                id,
-               cellLeaderEmail,
+               email,
                cellLeaderName,
                cellPhoneNumber,
                cellAddress,
-               cellZone,
+               zone,
                isEdit
             } = this.state
 
         //    Modal Class------------------------------------------
             return(
             <>
-               <Button color="primary" className="float-right mb-3" onClick={this.toggle}>Add Cell</Button>
+               <div className="row">
+                <div className="col-md-12">
+                     <Button color="primary" className="float-right mb-3" onClick={this.toggle}>Add Cell</Button>
+                </div>
+            </div>
                  
-                <div className="card shadow-sm">
-                    <div className="card-body">
-                        <Table className="mt-5">
+                <div className="row">
+                    <div className="col-md-12">
+                        <Table >   
                             <thead>
                                 <tr>
                                         <th>#</th>
@@ -218,11 +263,11 @@ export class CellList extends Component {
                             </FormGroup> 
                             <FormGroup>
                                 <Label for="zone">CellZone</Label>
-                                <Input type="nunber" id="zone" name="zone" value={cellZone} onChange={this.handleChange} />
+                                <Input type="nunber" id="zone" name="zone" value={zone} onChange={this.handleChange} />
                             </FormGroup> 
                             <FormGroup>
                                 <Label for="email">Email</Label>
-                                <Input type="text" id="email" name="email" value={cellLeaderEmail} onChange={this.handleChange} />
+                                <Input type="text" id="email" name="email" value={email} onChange={this.handleChange} />
                             </FormGroup>
                                 <FormGroup>
                                 <Label for="cellPhoneNumber">Phone Number</Label>
@@ -231,11 +276,11 @@ export class CellList extends Component {
                         </ModalBody>
                         <ModalFooter>
 
-                            {/* {isEdit? */}
-                            {/* <Button color="primary" onClick={this.updateCell}>Edit Cell</Button> */}
-                            {/* :  */}
+                            {isEdit?
+                            <Button color="primary" onClick={this.updateSubmit}>Update Cell</Button>
+                            : 
                             <Button color="primary" onClick={this.handleSubmit}>Add Cell</Button>
-                             {/* }  */}
+                            }
                             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
 
                         </ModalFooter>
