@@ -14,7 +14,7 @@ class AsideBar extends Component {
                 <div className="sidebar">
                   <div className="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div className="image">
-                      <img src="dist/img/user2-160x160.jpg" className="img-circle elevation-2" alt="User" />
+                      <img src="dist/img/user2-160x160.jpg" width="200" height="200" className="img-circle elevation-2" alt="User" />
                     </div>
                     <div className="info">
                       <Link to={""} className="d-block">Alexander Pierce</Link>
