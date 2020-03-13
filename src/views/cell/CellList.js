@@ -104,7 +104,22 @@ export class CellList extends Component {
 
     }
 
-    //PUT REQUEST ----------------------------------------------------------------------------------------------------------------
+    
+    handleChange = event =>{
+        this.setState({
+            [event.target.name] : event.target.value
+        })
+    }
+
+    toggle =() => {
+        this.setState({
+            modal: !this.state.modal,
+            isEdit:false
+        })
+        this.resetState()
+    }
+
+    //PUT/UPDATE REQUEST START HERE ----------------------------------------------------------------------------------------------------------------
 
     updateCell = (event) => {
         event.preventDefault();
@@ -124,26 +139,19 @@ export class CellList extends Component {
       
     }
 
-    deleteCell = () =>{};
-  
-
-    handleChange = event =>{
-        this.setState({
-            [event.target.name] : event.target.value
-        })
-    }
-
     //Handle posting ends here
 
-    toggle =() => {
+
+    //
+    resetState = ()=> {
         this.setState({
-            modal: !this.state.modal,
-            isEdit:false
+            zone:'',
+            cellAddress:'',
+            cellLeaderName:'',
+            email:'',
+            cellPhoneNumber:'',
         })
-
-        this.resetState()
     }
-
 
     updateToggle = (e,id) => {
         e.preventDefault()
@@ -154,16 +162,6 @@ export class CellList extends Component {
         setTimeout(()=>{
             this.getSingleCell(id)
         },1000)
-    }
-
-    resetState = ()=> {
-        this.setState({
-            zone:'',
-            cellAddress:'',
-            cellLeaderName:'',
-            email:'',
-            cellPhoneNumber:'',
-        })
     }
 
     getSingleCell(id){
@@ -179,8 +177,20 @@ export class CellList extends Component {
                 cellPhoneNumber:res.data.data.cellPhoneNumber
             })
         })
-      
     }
+
+    deleteRow = (e,) =>{
+        e.preventDefault()
+        this.setState({
+            
+        })
+    };
+
+    // deleteSingleCell(id){
+    //     axios.delete(`${BASE_URL}/api/cells/${this.state.id}}`)
+    //     .then
+    // }
+
 
     render() {
         if (this.state.isLoading) return <DefaultLoading/>
@@ -196,7 +206,7 @@ export class CellList extends Component {
                         <td>{cell.cellPhoneNumber}</td>
                         <td className="container">
                             <button className="btn btn-warning d-inline-block " size="sm" onClick={e=>this.updateToggle(e,cell.id)} >Edit </button> {' '}
-                            <button className="btn btn-danger d-inline-block" onClick={this.deleteCell(cell.id)}> Del </button>
+                            <button className="btn btn-danger d-inline-block" onClick={this.deleteRow.bind(this, )}> Del </button>
                         </td>
                  </tr>
                  )
@@ -223,6 +233,8 @@ export class CellList extends Component {
                  
                 <div className="row">
                     <div className="col-md-12">
+                    <div className="card shadow-sm">
+                        <div className="card-body">   
                         <Table >   
                             <thead>
                                 <tr>
@@ -240,6 +252,8 @@ export class CellList extends Component {
                                 {myCell}
                             </tbody>
                         </Table>
+                        </div>
+                        </div>
                     </div>
                </div>
 
