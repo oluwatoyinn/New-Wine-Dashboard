@@ -8,13 +8,13 @@ const MenuLink = () => {
                     {/* Add icons to the links using the .nav-icon class
                     with font-awesome or any other icon font library */}
                     <li className="nav-item has-treeview menu-open">
-                    <a href="#" className="nav-link active">
+                    <NavLink to="" className="nav-link active">
                         <i className="nav-icon fas fa-tachometer-alt" />
                         <p>
                         Starter Pages
                         <i className="right fas fa-angle-left" />
                         </p>
-                    </a>
+                    </NavLink>
                     <ul className="nav nav-treeview">
                         <li className="nav-item">
                         <NavLink to="/member" activeStyle={{color:'#03a9f3'}} className="nav-link">
@@ -48,7 +48,7 @@ const MenuLink = () => {
                     <a href="#" className="nav-link">
                         <i className="nav-icon fas fa-th" />
                         <p>
-                        Simple Link
+                        Simple NavLink
                         <span className="right badge badge-danger">New</span>
                         </p>
                     </a>
@@ -57,7 +57,7 @@ const MenuLink = () => {
                     <a href="#" className="nav-link">
                         <i className="nav-icon fas fa-th" />
                         <p>
-                        Simple Link
+                        Simple NavLink
                         <span className="right badge badge-danger">New</span>
                         </p>
                     </a>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {NavLink} from 'react-router-dom'
 
 class NavBar extends Component {
     render() {
@@ -15,7 +16,7 @@ class NavBar extends Component {
             <a href="index3.html" className="nav-link">Home</a>
           </li>
           <li className="nav-item d-none d-sm-inline-block">
-            <a href="#" className="nav-link">Contact</a>
+            <NavLink to="" className="nav-link">Contact</a>
           </li>
       </ul> */}
       <h3 className="header">WELCOME TO NEW WINE ADMIN DASHBOARD</h3>
@@ -39,7 +40,7 @@ class NavBar extends Component {
     {/* Messages Dropdown Menu */}
       <li className="nav-item dropdown">
           <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <a href="#" className="dropdown-item">
+            <NavLink to="" className="dropdown-item">
               {/* Message Start */}
                 <div className="media">
                   <img src="dist/img/user1-128x128.jpg" alt="User Avatar" className="img-size-50 mr-3 img-circle" />
@@ -53,9 +54,9 @@ class NavBar extends Component {
                     </div>
                 </div>
               {/* Message End */}
-            </a>
+            </NavLink>
             <div className="dropdown-divider" />
-                <a href="#" className="dropdown-item">
+                <NavLink to="" className="dropdown-item">
                   {/* Message Start */}
               <div className="media">
                     <img src="dist/img/user8-128x128.jpg" alt="User Avatar" className="img-size-50 img-circle mr-3" />
@@ -69,9 +70,9 @@ class NavBar extends Component {
                       </div>
               </div>
               {/* Message End */}
-            </a>
+            </NavLink>
             <div className="dropdown-divider" />
-            <a href="#" className="dropdown-item">
+            <NavLink to="" className="dropdown-item">
               {/* Message Start */}
               <div className="media">
                 <img src="dist/img/user3-128x128.jpg" alt="User Avatar" className="img-size-50 img-circle mr-3" />
@@ -85,9 +86,9 @@ class NavBar extends Component {
                 </div>
               </div>
               {/* Message End */}
-            </a>
+            </NavLink>
             <div className="dropdown-divider" />
-            <a href="#" className="dropdown-item dropdown-footer">See All Messages</a>
+            <NavLink to="" className="dropdown-item dropdown-footer">See All Messages</NavLink>
           </div>
       </li>
     {/* Notifications Dropdown Menu */}
@@ -99,22 +100,22 @@ class NavBar extends Component {
       <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
         <span className="dropdown-header">15 Notifications</span>
         <div className="dropdown-divider" />
-        <a href="#" className="dropdown-item">
+        <NavLink to="" className="dropdown-item">
           <i className="fas fa-envelope mr-2" /> 4 new messages
           <span className="float-right text-muted text-sm">3 mins</span>
-        </a>
+        </NavLink>
         <div className="dropdown-divider" />
-        <a href="#" className="dropdown-item">
+        <NavLink to="" className="dropdown-item">
           <i className="fas fa-users mr-2" /> 8 friend requests
           <span className="float-right text-muted text-sm">12 hours</span>
-        </a>
+        </NavLink>
         <div className="dropdown-divider" />
-        <a href="#" className="dropdown-item">
+        <NavLink to="" className="dropdown-item">
           <i className="fas fa-file mr-2" /> 3 new reports
           <span className="float-right text-muted text-sm">2 days</span>
-        </a>
+        </NavLink>
         <div className="dropdown-divider" />
-        <a href="#" className="dropdown-item dropdown-footer">See All Notifications</a>
+        <NavLink to="" className="dropdown-item dropdown-footer">See All Notifications</NavLink>
       </div>
     </li>
     {/* <li className="nav-item">
